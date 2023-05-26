@@ -1,0 +1,19 @@
+Zavisno od login-a se pojave opcije na meniju
+
+uopsteno opcije:
+[:USER:]
+Kreiranje naloga
+Promena naloga
+kreiranje statusa knjige
+brisanje statusa knjige
+
+[:BOTH:]
+pretrazivanje liste knjiga
+
+[:ADMIN:]
+brisanje naloga
+kreiranje knjige
+brisanje knjige
+promena podataka o knjizi
+pretrazivanje korisnika
+
