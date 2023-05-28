@@ -1,4 +1,13 @@
+//1
+verzija1:
+na login formi ubaciti dugme Login/Register
+verzija2:
+na user kontrolama ubaciti Login ili Register
 Zavisno od login-a se pojave opcije na meniju
+videti pripremiti funkcije za admina i korisnika, pa proslediti u delegat
+
+data base dll napraviti
+request i response napraviti
 
 uopsteno opcije:
 [:USER:]
@@ -17,3 +26,33 @@ brisanje knjige
 promena podataka o knjizi
 pretrazivanje korisnika
 
+
+
+
+
+
+//2
+Domain dll napraviti ->
+Korisnik
+Autor
+Izdavac
+Knjiga
+StatusKnjige
+
+
+
+//3
+Login implementiraj
+validacija passworda barem
+
+
+
+//4
+Kontroler -> singleton prati nepromenljive varijable
+
+//5
+kreiraj bazu i dizajniraj je
+connOPEN
+connCLOSE
+InsertXXXX
+UpdateXXXX
