@@ -56,3 +56,45 @@ connOPEN
 connCLOSE
 InsertXXXX
 UpdateXXXX
+
+
+//6
+osmisli protokol izmedju klijenta i servera
+
+
+
+//N
+dizajniraj gui
+
+
+
+[:IDEA:]
+Imam pdf program koji na serveru cuva informacije o knjigama na klijentima
+server moze da bude konzola samo ili gui, sto bi mozda olaksalo rad
+klijent ce biti gui
+
+
+
+
+[:SERVER:]
+Ideja:
+kad se pokrene, dugmici start i stop i textbox za unos komandi
+
+- Databaza kojom kontrolise server
+- Tcp Service kojim kontrolise server
+- Slanje i primanje zahteva preko osmisljenog protokola
+- Specijalni dugmici -> kick, ban, whoisonline, sendmsgTo(MessageBoxIskoci)
+
+- add terminal like text box and a thread that executes commands:
+	? or help	-> prints out commands
+	whois		-> lists logged in users
+	msg			-> sends msg to user
+	kick		-> kicks user
+	ban			-> deletes users account
+	time		-> time statistics ; what is the time now, how long have we been running...
+
+[:CLIENT:]
+- Login gui za klijenta
+- prepoznati da li je admin ili nije -> zavise funkcionalnosti
+- Konekcija -> usaglasiti protokol sa serverom
+- dizajnirati GUI lepse malo

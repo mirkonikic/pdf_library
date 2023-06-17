@@ -15,6 +15,11 @@ namespace pdf.Client.Forms
         public MainForm()
         {
             InitializeComponent();
+            // client logs in to the server with login form
+            // main form opens up main screen and gives options to user what can be clicked
+            // klikom na nesto, salje se zahtev serveru u obliku broja?
+            
+            // takodje postoje opcije za detailed info o pdf fajlovima -> advanced
         }
     }
 }
