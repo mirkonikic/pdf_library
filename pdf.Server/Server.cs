@@ -24,6 +24,15 @@ namespace pdf.Server
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
             serverSocket.Bind(endPoint);
             serverSocket.Listen(10);
+
+            // kasnije dodati accept i nov thread za socket
+        }
+
+        public void Listen() 
+        {
+            // Socket cli = serverSocket.Accept();
+            // 
+            // 
         }
 
         public void Stop()

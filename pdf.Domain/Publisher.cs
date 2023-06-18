@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace pdf.Common
+namespace pdf.Domain
 {
-    public class Class1
+    public class Publisher
     {
-
+        public Publisher() { }
     }
 }

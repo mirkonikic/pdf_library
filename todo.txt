@@ -80,7 +80,11 @@ klijent ce biti gui
 Ideja:
 kad se pokrene, dugmici start i stop i textbox za unos komandi
 
-- Databaza kojom kontrolise server
+- Prvo zavrsi GUI i unos komandi, pripremi sve za stvarno parsiranje
+- napravi NotImplementedException za svaku komandu
+- Kreni sa primanjem klijenata na vezu
+- Zavrsi niti ClientHandler
+- Postavi bazu podataka tako da radi sve hipoteticki
 - Tcp Service kojim kontrolise server
 - Slanje i primanje zahteva preko osmisljenog protokola
 - Specijalni dugmici -> kick, ban, whoisonline, sendmsgTo(MessageBoxIskoci)

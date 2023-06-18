@@ -31,14 +31,14 @@
             this.start_btn = new System.Windows.Forms.Button();
             this.stop_btn = new System.Windows.Forms.Button();
             this.main_rtb = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cmd_tb = new System.Windows.Forms.TextBox();
             this.enter_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // start_btn
             // 
             this.start_btn.Location = new System.Drawing.Point(16, 511);
-            this.start_btn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.start_btn.Margin = new System.Windows.Forms.Padding(4);
             this.start_btn.Name = "start_btn";
             this.start_btn.Size = new System.Drawing.Size(100, 28);
             this.start_btn.TabIndex = 0;
@@ -50,7 +50,7 @@
             // 
             this.stop_btn.Enabled = false;
             this.stop_btn.Location = new System.Drawing.Point(124, 511);
-            this.stop_btn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.stop_btn.Margin = new System.Windows.Forms.Padding(4);
             this.stop_btn.Name = "stop_btn";
             this.stop_btn.Size = new System.Drawing.Size(100, 28);
             this.stop_btn.TabIndex = 1;
@@ -61,24 +61,25 @@
             // main_rtb
             // 
             this.main_rtb.Location = new System.Drawing.Point(16, 15);
-            this.main_rtb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.main_rtb.Margin = new System.Windows.Forms.Padding(4);
             this.main_rtb.Name = "main_rtb";
             this.main_rtb.Size = new System.Drawing.Size(1033, 488);
             this.main_rtb.TabIndex = 2;
             this.main_rtb.Text = "";
             // 
-            // textBox1
+            // cmd_tb
             // 
-            this.textBox1.Location = new System.Drawing.Point(233, 513);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(708, 22);
-            this.textBox1.TabIndex = 3;
+            this.cmd_tb.Location = new System.Drawing.Point(233, 513);
+            this.cmd_tb.Margin = new System.Windows.Forms.Padding(4);
+            this.cmd_tb.Name = "cmd_tb";
+            this.cmd_tb.Size = new System.Drawing.Size(708, 22);
+            this.cmd_tb.TabIndex = 3;
+            this.cmd_tb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmd_tb_KeyDown);
             // 
             // enter_btn
             // 
             this.enter_btn.Location = new System.Drawing.Point(951, 511);
-            this.enter_btn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.enter_btn.Margin = new System.Windows.Forms.Padding(4);
             this.enter_btn.Name = "enter_btn";
             this.enter_btn.Size = new System.Drawing.Size(100, 28);
             this.enter_btn.TabIndex = 4;
@@ -92,11 +93,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.enter_btn);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.cmd_tb);
             this.Controls.Add(this.main_rtb);
             this.Controls.Add(this.stop_btn);
             this.Controls.Add(this.start_btn);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SrvMainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -109,7 +110,7 @@
         private System.Windows.Forms.Button start_btn;
         private System.Windows.Forms.Button stop_btn;
         private System.Windows.Forms.RichTextBox main_rtb;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox cmd_tb;
         private System.Windows.Forms.Button enter_btn;
     }
 }

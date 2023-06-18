@@ -13,6 +13,7 @@ namespace pdf.Server
     public partial class SrvMainForm : Form
     {
         Boolean running = false;
+        // prebaci u Controller-a
         Server server;
         CommandParser cmd;
 
@@ -37,7 +38,6 @@ namespace pdf.Server
             setButtons();
             server.Stop();
         }
-
         private void start_btn_Click(object sender, EventArgs e)
         {
             running = true;
@@ -45,22 +45,45 @@ namespace pdf.Server
             server.Start();
             banner();
         }
-
-        private void setButtons() 
+        private void setButtons()
         {
             start_btn.Enabled = !running;
             stop_btn.Enabled = running;
         }
-
-        private void banner() 
+        private void banner()
         {
-            main_rtb.Text += "Server started!\n";
+            updateTxtBoxLn("Server started!");
         }
-
         private void enter_btn_Click(object sender, EventArgs e)
         {
+            // add on enter
             // execute inputed command
-            
+            // CommandParser.Parse();
+            updateTxtBoxLn(cmd_tb.Text);
+            cmd_tb.Text = "";
+        }
+        public void updateTxtBoxLn(string inp) 
+        {
+            main_rtb.Text = main_rtb.Text + inp + '\n';
+            // da postavim caret na kraj i skrolujem na dole
+            main_rtb.SelectionStart = main_rtb.Text.Length;
+            main_rtb.ScrollToCaret();
+        }
+        public void updateTxtBox(string inp)
+        {
+            main_rtb.Text = main_rtb.Text + inp;
+            // da postavim caret na kraj i skrolujem na dole
+            main_rtb.SelectionStart = main_rtb.Text.Length;
+            main_rtb.ScrollToCaret();
+        }
+        private void cmd_tb_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                // Parse the command inputted
+                updateTxtBoxLn(cmd_tb.Text);
+                cmd_tb.Text = "";
+            }
         }
     }
 }

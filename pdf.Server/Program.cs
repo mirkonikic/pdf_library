@@ -8,9 +8,8 @@ namespace pdf.Server
 {
     internal static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        // da li ovde napraviti singleton za formu, da bih imao pristup svemu
+
         [STAThread]
         static void Main()
         {
