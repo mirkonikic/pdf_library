@@ -15,7 +15,10 @@ namespace pdf.Server
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SrvMainForm());
+
+            SrvMainForm srv_form = new SrvMainForm();
+            Controller.Instance.SetForm(srv_form);
+            Application.Run(srv_form);
         }
     }
 }

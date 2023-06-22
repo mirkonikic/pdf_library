@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -36,13 +37,16 @@ namespace pdf.Server
         {
             running = false;
             setButtons();
-            server.Stop();
+            Controller.Instance.server.Stop();
         }
         private void start_btn_Click(object sender, EventArgs e)
         {
+            // 1:24:00 -> 11 vezbe mp4
             running = true;
             setButtons();
-            server.Start();
+            Controller.Instance.server.Start();
+            Thread nit = new Thread(Controller.Instance.server.HandleClients);
+            nit.Start();
             banner();
         }
         private void setButtons()
@@ -59,7 +63,7 @@ namespace pdf.Server
             // add on enter
             // execute inputed command
             // CommandParser.Parse();
-            updateTxtBoxLn(cmd_tb.Text);
+            Controller.Instance.cmdParse.Parse(cmd_tb.Text);
             cmd_tb.Text = "";
         }
         public void updateTxtBoxLn(string inp) 
@@ -81,9 +85,14 @@ namespace pdf.Server
             if (e.KeyCode == Keys.Return)
             {
                 // Parse the command inputted
-                updateTxtBoxLn(cmd_tb.Text);
+                Controller.Instance.cmdParse.Parse(cmd_tb.Text);
                 cmd_tb.Text = "";
             }
+        }
+
+        private void SrvMainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

@@ -1,3 +1,23 @@
+pitanja:
+- forma kako proslediti u singleton da mogu da saljem zahteve metodama -> pokusaj da uredim, ubacim u Controller, pa Invoke
+-> ideja1: da cmdParse postavim da vrati string pa direktno u UpdateTxtBox
+-> ideja2: da dodam u controller formu i da odatle kontrolisem metode
+- StatusKnjige kako predstaviti u vidu klase
+- predlog za GUI koji zavisi od vrste korisnika
+- https://dl.ebooksworld.ir/motoman/Manning.Csharp.in.Depth.4th.Edition.www.EBooksWorld.ir.pdf
+
+
+
+nezavrseno
++ Server:HandleRequests -> thread handling requests from client
++ Server:CommandParser  -> thread handling requests from GUI server
+- Server:DataBase       -> setup database and methods for db manipulation
+- Server:Protocol       -> define protocol for communication
+- Client:Everything
+- _Both_:Additional		-> specific quirks
+
+
+
 //1
 verzija1:
 na login formi ubaciti dugme Login/Register
@@ -5,9 +25,6 @@ verzija2:
 na user kontrolama ubaciti Login ili Register
 Zavisno od login-a se pojave opcije na meniju
 videti pripremiti funkcije za admina i korisnika, pa proslediti u delegat
-
-data base dll napraviti
-request i response napraviti
 
 uopsteno opcije:
 [:USER:]

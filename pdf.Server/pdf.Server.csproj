@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ClientHandler.cs" />
     <Compile Include="CommandParser.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="Forms\SrvMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +83,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\pdf.Common\pdf.Common.csproj">
+      <Project>{3f0c8c90-216f-4670-9e16-154dfc1fe654}</Project>
+      <Name>pdf.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\pdf.Domain\pdf.Domain.csproj">
+      <Project>{46948dd1-fcde-44c2-8f0e-49bbb60fd1ca}</Project>
+      <Name>pdf.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -100,6 +100,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SrvMainForm";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SrvMainForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
