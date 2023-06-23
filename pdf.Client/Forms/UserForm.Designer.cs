@@ -1,6 +1,6 @@
 ﻿namespace pdf.Client.Forms
 {
-    partial class MainForm
+    partial class UserForm
     {
         /// <summary>
         /// Required designer variable.

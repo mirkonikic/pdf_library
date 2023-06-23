@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace pdf.Client.Forms
 {
-    public partial class MainForm : Form
+    public partial class UserForm : Form
     {
-        public MainForm()
+        public UserForm()
         {
             InitializeComponent();
             // client logs in to the server with login form

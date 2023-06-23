@@ -1,13 +1,13 @@
-﻿namespace pdf.Client.UserControls
+﻿namespace pdf.Client.Forms
 {
-    partial class RegisterUC
+    partial class AdminForm
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,22 +20,23 @@
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
+        #region Windows Form Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.SuspendLayout();
             // 
-            // RegisterUC
+            // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "RegisterUC";
-            this.Size = new System.Drawing.Size(864, 555);
+            this.ClientSize = new System.Drawing.Size(1086, 609);
+            this.Name = "AdminForm";
+            this.Text = "AdminForm";
             this.ResumeLayout(false);
 
         }

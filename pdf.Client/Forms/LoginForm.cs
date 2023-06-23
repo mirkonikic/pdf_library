@@ -14,26 +14,18 @@ namespace pdf.Client
 {
     public partial class LoginForm : Form
     {
-        /*
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-            int nLeftRect,     // x-coordinate of upper-left corner
-            int nTopRect,      // y-coordinate of upper-left corner
-            int nRightRect,    // x-coordinate of lower-right corner
-            int nBottomRect,   // y-coordinate of lower-right corner
-            int nWidthEllipse, // width of ellipse
-            int nHeightEllipse // height of ellipse
-        );
-        */
 
         public LoginForm()
         {
             InitializeComponent();
 
             // BannerPanel da se odmah pojavi
+            main_panel.Controls.Clear();
             BannerUC buc = new BannerUC();
             main_panel.Controls.Add(buc);
+
+            // Na BannerUC, postaviti IP adresu i Port i ostala podesavanja
+            // -> povezati se i onda otici na login dugme?
 
             // osmisli kako da kontrolises user kontrole, moja ideja bi bila
             
@@ -41,23 +33,18 @@ namespace pdf.Client
             // main forma ima panel u kojem se nalazi gui i menja se na klik
         }
 
-        /*
-            1. signal NapraviKorisnika(Korisnik)                        :Register
-            2. signal UcitajKorisnike(List<Korisnik>)                   :AllUsers
-            3. signal PretraziKorisnike(kriterijum, List<Korisnik>)     :SearchUs
-            4. signal UcitajKorisnika(Korisnik)                         :
-            5. signal IzmeniKorisnika(Korisnik)
-            6. signal ObrisiKorisnika(Korisnik)
-            7. signal NapraviKnjigu(Knjiga)
-            8. signal UcitajKnjige(List<Knjiga>)
-            9. signal PretraziKnjige(kriterijum, List<Knjiga>)
-            10. signal UcitajKnjigu(Knjiga)
-            11. signal IzmeniKnjigu(Knjiga)
-            12. signal ObrisiKnjigu(Knjiga)
-            13. signal NapraviStatusKnjige(Status)
-            14. signal IzmeniStatusKnjige(StatusKnjige)
-            15. signal UcitajAutore(List<Autor>)
-            16. signal UcitajIzdavace(List<Izdavac>)
-        */
+        private void homeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            main_panel.Controls.Clear();
+            BannerUC buc = new BannerUC();
+            main_panel.Controls.Add(buc);
+        }
+
+        private void loginToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            main_panel.Controls.Clear();
+            LoginUC luc = new LoginUC();
+            main_panel.Controls.Add(luc);
+        }
     }
 }

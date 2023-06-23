@@ -58,10 +58,10 @@ namespace pdf.Server
                     cmd = Commands.nothing;
                     break;
             }
-            Execute(cmd);
+            Execute(cmd, input);
         }
 
-        public void Execute(Commands c)
+        public void Execute(Commands c, string s)
         {
             if (Controller.Instance.server.serverSocket == null) 
             {
@@ -77,7 +77,7 @@ namespace pdf.Server
                 case Commands.time: time(); break;
                 case Commands.ban: ban(); break;
                 case Commands.kick: kick(); break;
-                case Commands.nothing: none(); break;
+                case Commands.nothing: none(s); break;
                 default: break;
             }
         }
@@ -120,7 +120,11 @@ namespace pdf.Server
         public void time() { }
         public void ban() { }
         public void kick() { }
-        public void none() { }
+        public void none(string s) 
+        {
+            Controller.Instance.PrintOnTerminal("");
+            Controller.Instance.PrintOnTerminal(s);
+        }
 
     }
 }

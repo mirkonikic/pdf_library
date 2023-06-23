@@ -16,5 +16,15 @@ namespace pdf.Client.UserControls
         {
             InitializeComponent();
         }
+
+        private void connect_btn_Click(object sender, EventArgs e)
+        {
+            // Validate IP and Port
+            Controller.Instance.client.IpAddress = ip_txt.Text;
+            Controller.Instance.client.Port = port_lbl.Text;
+            
+            // Connect with Client
+            // Keep connection for later sending of commands
+        }
     }
 }

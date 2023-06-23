@@ -5,7 +5,11 @@ pitanja:
 - StatusKnjige kako predstaviti u vidu klase
 - predlog za GUI koji zavisi od vrste korisnika
 - https://dl.ebooksworld.ir/motoman/Manning.Csharp.in.Depth.4th.Edition.www.EBooksWorld.ir.pdf
+- kako iz userControle da posaljem DialogResult u formu
 
+- bice request response protokol
+- pravim controller-a za client-a isto i u njemu se pokrece forma i menjaju paneli
+	pa mozda lakse mogu da kontrolisem GUI
 
 
 nezavrseno
@@ -16,6 +20,34 @@ nezavrseno
 - Client:Everything
 - _Both_:Additional		-> specific quirks
 
+
+/* Login side
+    1. signal NapraviKorisnika(Korisnik)                        :Register
+    2. signal UcitajKorisnike(List<Korisnik>)                   :AllUsers
+    4. signal UcitajKorisnika(Korisnik)                         :
+*/
+
+
+/* User side
+    5. signal IzmeniKorisnika(Korisnik)
+    8. signal UcitajKnjige(List<Knjiga>)
+    9. signal PretraziKnjige(kriterijum, List<Knjiga>)
+    10. signal UcitajKnjigu(Knjiga)
+    13. signal NapraviStatusKnjige(Status)
+    14. signal IzmeniStatusKnjige(StatusKnjige)
+    15. signal UcitajAutore(List<Autor>)
+    16. signal UcitajIzdavace(List<Izdavac>)
+*/
+
+
+/* Admin side
+    3. signal PretraziKorisnike(kriterijum, List<Korisnik>)     :SearchUs
+    6. signal ObrisiKorisnika(Korisnik)
+    7. signal NapraviKnjigu(Knjiga)
+    9. signal PretraziKnjige(kriterijum, List<Knjiga>)
+    11. signal IzmeniKnjigu(Knjiga)
+    12. signal ObrisiKnjigu(Knjiga)
+*/
 
 
 //1

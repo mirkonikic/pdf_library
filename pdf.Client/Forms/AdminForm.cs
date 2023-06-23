@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace pdf.Client.UserControls
+namespace pdf.Client.Forms
 {
-    public partial class RegisterUC : UserControl
+    public partial class AdminForm : Form
     {
-        public RegisterUC()
+        public AdminForm()
         {
             InitializeComponent();
         }
