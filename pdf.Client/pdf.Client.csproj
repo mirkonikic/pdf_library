@@ -80,12 +80,6 @@
     <Compile Include="UserControls\LoginUC.Designer.cs">
       <DependentUpon>LoginUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RegisterUC.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\RegisterUC.Designer.cs">
-      <DependentUpon>RegisterUC.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Forms\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,9 +99,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\LoginUC.resx">
       <DependentUpon>LoginUC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\RegisterUC.resx">
-      <DependentUpon>RegisterUC.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

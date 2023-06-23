@@ -15,9 +15,15 @@ namespace pdf.Client
         public string IpAddress = "127.0.0.1";
         public string Port = "9999";
 
-        public Client() { }
+        public Client() 
+        {
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        }
 
-        public void Start() { }
+        public void Start() 
+        {
+            socket.Connect(IpAddress, Int32.Parse(Port));
+        }
         public void Stop() { }
     }
 }

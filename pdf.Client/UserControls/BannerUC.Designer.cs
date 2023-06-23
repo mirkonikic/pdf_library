@@ -83,7 +83,7 @@
             // 
             this.connect_btn.Location = new System.Drawing.Point(514, 326);
             this.connect_btn.Name = "connect_btn";
-            this.connect_btn.Size = new System.Drawing.Size(75, 23);
+            this.connect_btn.Size = new System.Drawing.Size(75, 24);
             this.connect_btn.TabIndex = 5;
             this.connect_btn.Text = "connect";
             this.connect_btn.UseVisualStyleBackColor = true;

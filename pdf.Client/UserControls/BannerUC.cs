@@ -20,11 +20,15 @@ namespace pdf.Client.UserControls
         private void connect_btn_Click(object sender, EventArgs e)
         {
             // Validate IP and Port
-            Controller.Instance.client.IpAddress = ip_txt.Text;
-            Controller.Instance.client.Port = port_lbl.Text;
-            
+            if (ip_txt.Text != "" && port_lbl.Text != "")
+            {
+                Controller.Instance.client.IpAddress = ip_txt.Text;
+                Controller.Instance.client.Port = port_lbl.Text;
+            }
+
             // Connect with Client
             // Keep connection for later sending of commands
+            Controller.Instance.client.Start();
         }
     }
 }
