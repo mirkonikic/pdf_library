@@ -89,7 +89,6 @@ namespace pdf.Server
                 cmd_tb.Text = "";
             }
         }
-
         private void SrvMainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Environment.Exit(0);

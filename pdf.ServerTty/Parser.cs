@@ -3,40 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Threading;
 
-namespace pdf.Server
+namespace pdf.ServerTty
 {
-    public class CommandParser
+
+    public class Parser
     {
         // Commands cmd;
         // mislim da treba napraviti singleton i u njega ubaciti operaciju koja treba da se izvrsi
         // command parser samo postavi vrednost u promenljivu, kasnije se proveri i izvrsi?
 
-        public enum Commands 
+        // finish full parser here
+
+        public enum Commands
         {
             help,
+            echo,
             start,
             stop,
-            whois,      
+            end,
             time,
-            ban,
+            whois,
+            list,
             kick,
+            ban,
+            msg,
             nothing
         }
 
-        public CommandParser() 
+        public Parser()
         {
-        
+
         }
 
-        public void Parse(string input) 
+        public void Parse(string input)
         {
             // split input and check which operation it belongs to
             // set Commands to that operation and forward those two arguments to Execute(Commands cmd, string inp);
             Commands cmd = Commands.nothing;
-            switch(input.Split(' ')[0]) 
+            switch (input.Split(' ')[0])
             {
                 case "help":
                 case "?":
@@ -65,9 +70,9 @@ namespace pdf.Server
 
         public void Execute(Commands c, string s)
         {
-            if (Controller.Instance.server.serverSocket == null) 
+            if (Controller.Instance.server.isNull() == null)
             {
-                Controller.Instance.PrintOnTerminal("Server is not running!");
+                Controller.Instance.terminal.PrintLn("Server is not running!");
                 return;
             }
             switch (c)
@@ -84,7 +89,7 @@ namespace pdf.Server
             }
         }
 
-        public void help() 
+        public void help()
         {
             /*
                 
@@ -98,37 +103,36 @@ namespace pdf.Server
                     /kick   -   kicks user from the network
             
             */
-            Controller.Instance.PrintOnTerminal("");
-            Controller.Instance.PrintOnTerminal("\tPdfLib v0.1 -> server");
-            Controller.Instance.PrintOnTerminal("\t\thelp   -   prints out this message");
-            Controller.Instance.PrintOnTerminal("\t\twhois  -   prints out logged in clients with info");
-            Controller.Instance.PrintOnTerminal("\t\ttime   -   prints out time statistics");
-            Controller.Instance.PrintOnTerminal("\t\tban    -   bans user IP from logging in and deletes account");
-            Controller.Instance.PrintOnTerminal("\t\tkick   -   kicks user from the network");
-            Controller.Instance.PrintOnTerminal("");
-            Controller.Instance.PrintOnTerminal("-----------------------------------------------------------------");
+            Controller.Instance.terminal.PrintLn("");
+            Controller.Instance.terminal.PrintLn("\tPdfLib v0.1 -> server");
+            Controller.Instance.terminal.PrintLn("\t\thelp   -   prints out this message");
+            Controller.Instance.terminal.PrintLn("\t\twhois  -   prints out logged in clients with info");
+            Controller.Instance.terminal.PrintLn("\t\ttime   -   prints out time statistics");
+            Controller.Instance.terminal.PrintLn("\t\tban    -   bans user IP from logging in and deletes account");
+            Controller.Instance.terminal.PrintLn("\t\tkick   -   kicks user from the network");
+            Controller.Instance.terminal.PrintLn("");
+            Controller.Instance.terminal.PrintLn("-----------------------------------------------------------------");
         }
-        public void whois() 
+        public void whois()
         {
-            Controller.Instance.PrintOnTerminal("");
-            Controller.Instance.PrintOnTerminal("WHOIS ONLINE:");
-            for (int i = 0; i < Controller.Instance.clients.Count; i++) 
+            Controller.Instance.terminal.PrintLn("");
+            Controller.Instance.terminal.PrintLn("WHOIS ONLINE:");
+            for (int i = 0; i < Controller.Instance.clients.Count; i++)
             {
-                Controller.Instance.PrintOnTerminal(Controller.Instance.clients[i].ToString());
+                Controller.Instance.terminal.PrintLn (Controller.Instance.clients[i].ToString());
             }
-            Controller.Instance.PrintOnTerminal("");
-            Controller.Instance.PrintOnTerminal("-----------------------------------------------------------------");
+            Controller.Instance.terminal.PrintLn("");
+            Controller.Instance.terminal.PrintLn("-----------------------------------------------------------------");
         }
-        public void time() { }
         public void start() { }
         public void stop() { }
+        public void time() { }
         public void ban() { }
         public void kick() { }
-        public void none(string s) 
+        public void none(string s)
         {
-            Controller.Instance.PrintOnTerminal("");
-            Controller.Instance.PrintOnTerminal(s);
+            Controller.Instance.terminal.PrintLn("");
+            Controller.Instance.terminal.PrintLn(s);
         }
-
     }
 }

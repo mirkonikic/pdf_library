@@ -60,6 +60,8 @@
             // 
             // main_rtb
             // 
+            this.main_rtb.BackColor = System.Drawing.SystemColors.Menu;
+            this.main_rtb.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.main_rtb.Location = new System.Drawing.Point(16, 15);
             this.main_rtb.Margin = new System.Windows.Forms.Padding(4);
             this.main_rtb.Name = "main_rtb";
@@ -91,6 +93,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.enter_btn);
             this.Controls.Add(this.cmd_tb);

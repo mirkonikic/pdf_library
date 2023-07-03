@@ -24,7 +24,6 @@ namespace pdf.Client.UserControls
             // Send login information on already established connection
             // If there is no such account, i get an option to register
 
-
         }
     }
 }

@@ -12,6 +12,20 @@ pitanja:
 	pa mozda lakse mogu da kontrolisem GUI
 
 
+help    -> prints command info banner
+echo    -> prints whatever is written and prints some env variables
+env     -> lists, sets and deletes env variables
+start   -> starts server -> start ip:port
+stop    -> stops server -> stops server
+end     -> 
+time    -> 
+whois   -> 
+list    -> 
+kick    -> 
+ban     -> 
+msg     -> 
+nothing -> 
+
 nezavrseno
 + Server:HandleRequests -> thread handling requests from client
 + Server:CommandParser  -> thread handling requests from GUI server

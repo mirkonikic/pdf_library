@@ -23,7 +23,7 @@ namespace pdf.Client.UserControls
             if (ip_txt.Text != "" && port_lbl.Text != "")
             {
                 Controller.Instance.client.IpAddress = ip_txt.Text;
-                Controller.Instance.client.Port = port_lbl.Text;
+                Controller.Instance.client.Port = port_txt.Text;
             }
 
             // Connect with Client
