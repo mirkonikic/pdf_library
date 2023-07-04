@@ -15,6 +15,7 @@ namespace pdf.ServerTty
     {
         private Socket serverSocket;
         private Thread handleReq;
+        private bool running;
 
         public Server()
         {
@@ -23,10 +24,21 @@ namespace pdf.ServerTty
 
         public void Start(string ip_addr, int port)
         {
-            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip_addr), port);
-            serverSocket.Bind(endPoint);
-            serverSocket.Listen(10);
+            if (running != true)
+            {
+                running = true;
+                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip_addr), port);
+                serverSocket.Bind(endPoint);
+                serverSocket.Listen(10);
+                Thread nit = new Thread(Controller.Instance.server.HandleClients);
+                nit.Start();
+                Controller.Instance.terminal.vPrintLn($"Server started on address: {((IPEndPoint)serverSocket.LocalEndPoint).ToString()}");
+            }
+            else 
+            {
+                Controller.Instance.terminal.ePrintLn($"Error: server is already running on port: {((IPEndPoint)serverSocket.LocalEndPoint).Port}");
+            }
         }
 
         public void HandleClients()
@@ -53,10 +65,12 @@ namespace pdf.ServerTty
 
         public void Stop()
         {
+            running = false;
             serverSocket.Close();
             serverSocket = null;
         }
 
         public Boolean isNull() { return (serverSocket == null); }
+        public Boolean isRunning() { return running; }
     }
 }

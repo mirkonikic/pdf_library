@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,51 +16,87 @@ namespace pdf.ServerTty
 
         // finish full parser here
 
-        public enum Commands
+        public enum Commands { ban, echo, quit, env, help, info, kick, list, msg, nothing, start, stop, time, visual }
+        public enum Tokens { command, option, numeric, alphabet, alphanumeric, semicolon, colon, pipe, equal, two_exclamation_marks, env_var }
+
+        public Parser() { }
+
+        #region cmd_lang_implementation
+        // Simple Language For Command Parsing On Server Side -> SLFCPOSS
+        // da bih olaksao sebi, svaki token je odvojen space-om -> help env ; echo mirko $n
+        public void Run(string input) 
         {
-            help,
-            echo,
-            start,
-            stop,
-            end,
-            time,
-            whois,
-            list,
-            kick,
-            ban,
-            msg,
-            nothing
+            Executor(SemanticAnalyzer(SyntaxAnalyzer(Lexer(input))));
         }
 
-        public Parser()
-        {
+        // Lexical Analysis -> separate text by spaces, than sort each element with regex into list of tokens, return the list to Parser
+        private Tokens[] Lexer(string input) 
+        { return null; }
 
-        }
+        // Syntax Analysis -> create a parse tree here and pass it to Semantic Analyzer
+        private Tokens[] SyntaxAnalyzer(Tokens[] tokens)
+        { return null; }
 
+        // Semantic Analysis -> type checking etc.
+        private Tokens[] SemanticAnalyzer(Tokens[] tokens) 
+        { return null; }
+
+        // Code Generation -> Interpret the AST, no need to generate code here
+        private void Executor(Tokens[] tokens)
+        {  }
+        #endregion
+
+        // Current simple parser
         public void Parse(string input)
         {
             // split input and check which operation it belongs to
             // set Commands to that operation and forward those two arguments to Execute(Commands cmd, string inp);
+
+            // ban, echo, quit, env, help, kick, list, msg, nothing, start, stop, time, visual
             Commands cmd = Commands.nothing;
             switch (input.Split(' ')[0])
             {
+                case "ban":
+                    cmd = Commands.ban;
+                    break;
+                case "echo":
+                    cmd = Commands.echo;
+                    break;
+                case "quit":
+                    cmd = Commands.quit;
+                    break;
+                case "env":
+                    cmd = Commands.env;
+                    break;
                 case "help":
-                case "?":
                     cmd = Commands.help;
                     break;
-                case "start": break;
-                case "stop": break;
-                case "whois":
-                    cmd = Commands.whois;
+                case "info":
+                    cmd = Commands.info;
+                    break;
+                case "kick":
+                    cmd = Commands.kick;
+                    break;
+                case "list":
+                    cmd = Commands.list;
+                    break;
+                case "msg":
+                    cmd = Commands.msg;
+                    break;
+                case "nothing":
+                    cmd = Commands.nothing;
+                    break;
+                case "start":
+                    cmd = Commands.start;
+                    break;
+                case "stop":
+                    cmd = Commands.stop;
                     break;
                 case "time":
                     cmd = Commands.time;
                     break;
-                case "ban":
-                    cmd = Commands.ban;
-                    break;
-                case "kick":
-                    cmd = Commands.kick;
+                case "visual":
+                    cmd = Commands.visual;
                     break;
                 default:
                     cmd = Commands.nothing;
@@ -70,49 +107,63 @@ namespace pdf.ServerTty
 
         public void Execute(Commands c, string s)
         {
-            if (Controller.Instance.server.isNull() == null)
+            if (Controller.Instance.server.isNull() == true && (c != Commands.start && c != Commands.help && c != Commands.help && c != Commands.visual && c != Commands.quit))
             {
                 Controller.Instance.terminal.PrintLn("Server is not running!");
                 return;
             }
             switch (c)
             {
-                case Commands.help: help(); break;
-                case Commands.start: start(); break;
-                case Commands.stop: stop(); break;
-                case Commands.whois: whois(); break;
-                case Commands.time: time(); break;
-                case Commands.ban: ban(); break;
-                case Commands.kick: kick(); break;
-                case Commands.nothing: none(s); break;
+                case Commands.ban: ban(s); break;
+                case Commands.echo: echo(s); break;
+                case Commands.quit: quit(s); break;
+                case Commands.env: env(s); break;
+                case Commands.help: help(s); break;
+                case Commands.info: info(s); break;
+                case Commands.kick: kick(s); break;
+                case Commands.list: list(s); break;
+                case Commands.msg: msg(s); break;
+                case Commands.nothing: nothing(s); break;
+                case Commands.start: start(s); break;
+                case Commands.stop: stop(s); break;
+                case Commands.time: time(s); break;
+                case Commands.visual: visual(s); break;
                 default: break;
             }
         }
 
-        public void help()
-        {
-            /*
+        public void ban(string s) { }
+        public void echo(string s) { }
+        public void quit(string s) { }
+        public void env(string s) { }
+        public void help(string s)
+        { /*
                 
                 PdfLib v0.1 -> server
-                    /help   -   prints out this message
-                    /start  -   starts the server
-                    /stop   -   stops the server
-                    /whois  -   prints out logged in clients with info
-                    /time   -   prints out time statistics
-                    /ban    -   bans user IP from logging in and deletes account
-                    /kick   -   kicks user from the network
+                    Server commands: ban, echo, quit, env, help, kick, list, msg, nothing, start, stop, time, visual
+                    * use help with any of them to find out more about each one
             
             */
-            Controller.Instance.terminal.PrintLn("");
-            Controller.Instance.terminal.PrintLn("\tPdfLib v0.1 -> server");
-            Controller.Instance.terminal.PrintLn("\t\thelp   -   prints out this message");
-            Controller.Instance.terminal.PrintLn("\t\twhois  -   prints out logged in clients with info");
-            Controller.Instance.terminal.PrintLn("\t\ttime   -   prints out time statistics");
-            Controller.Instance.terminal.PrintLn("\t\tban    -   bans user IP from logging in and deletes account");
-            Controller.Instance.terminal.PrintLn("\t\tkick   -   kicks user from the network");
-            Controller.Instance.terminal.PrintLn("");
-            Controller.Instance.terminal.PrintLn("-----------------------------------------------------------------");
+            Controller.Instance.terminal.tPrintLn("", 10);
+            Controller.Instance.terminal.tPrintLn("\tPdfLib v0.1 -> server", 10);
+            Controller.Instance.terminal.tPrintLn("\t\tServer commands: ban, echo, quit, env, help, kick, list, msg, nothing, start, stop, time, visual", 10);
+            Controller.Instance.terminal.tPrintLn("\t\t* commands are used like: CMD <TARGET> [-OPTION]", 10);
+            Controller.Instance.terminal.tPrintLn("\t\t* use help with any of them to find out more about each one", 10);
+            Controller.Instance.terminal.tPrintLn("", 10);
+            Controller.Instance.terminal.tPrintLn("-----------------------------------------------------------------", 10);
         }
+        public void info(string s) { }
+        public void kick(string s) { }
+        public void list(string s) { }
+        public void msg(string s) { }
+        public void nothing(string s) { }
+        public void start(string s) 
+        {
+            Controller.Instance.server.Start("127.0.0.1", 9999); }
+        public void stop(string s) { Controller.Instance.server.Stop(); }
+        public void time(string s) { }
+        public void visual(string s) { }
+
         public void whois()
         {
             Controller.Instance.terminal.PrintLn("");
@@ -123,16 +174,6 @@ namespace pdf.ServerTty
             }
             Controller.Instance.terminal.PrintLn("");
             Controller.Instance.terminal.PrintLn("-----------------------------------------------------------------");
-        }
-        public void start() { }
-        public void stop() { }
-        public void time() { }
-        public void ban() { }
-        public void kick() { }
-        public void none(string s)
-        {
-            Controller.Instance.terminal.PrintLn("");
-            Controller.Instance.terminal.PrintLn(s);
         }
     }
 }

@@ -1,30 +1,74 @@
-pitanja:
-- forma kako proslediti u singleton da mogu da saljem zahteve metodama -> pokusaj da uredim, ubacim u Controller, pa Invoke
--> ideja1: da cmdParse postavim da vrati string pa direktno u UpdateTxtBox
--> ideja2: da dodam u controller formu i da odatle kontrolisem metode
-- StatusKnjige kako predstaviti u vidu klase
-- predlog za GUI koji zavisi od vrste korisnika
-- https://dl.ebooksworld.ir/motoman/Manning.Csharp.in.Depth.4th.Edition.www.EBooksWorld.ir.pdf
-- kako iz userControle da posaljem DialogResult u formu
-
-- bice request response protokol
-- pravim controller-a za client-a isto i u njemu se pokrece forma i menjaju paneli
-	pa mozda lakse mogu da kontrolisem GUI
 
 
-help    -> prints command info banner
-echo    -> prints whatever is written and prints some env variables
-env     -> lists, sets and deletes env variables
-start   -> starts server -> start ip:port
-stop    -> stops server -> stops server
-end     -> 
-time    -> 
-whois   -> 
-list    -> 
-kick    -> 
-ban     -> 
-msg     -> 
-nothing -> 
+
+
+
+[COMMAND LANG:]
+- Write small lexer+parser+ASTanalyzer -> as a server cmd language
+- Allowed, variable assignment, using of variables later on
+- Chaining couple of commands with ;
+- Piping output of commands with |     -> list user -i 19 | list object Book -pin (pipe input) or -stdin (input in next readme)
+- options -> 
+    -a (all)
+    -n (name)
+    -id (id)
+    -inp (input from where[FILE:STDIN:PIPE])
+- special characters
+    !! -> last command
+    |  -> pipe
+    ;  -> chain sequentially/end of instruction
+    =  -> assignment
+
+
+
+[COMMANDS]
+ban, echo, end, env, help, info, kick, list, msg, nothing, start, stop, time, visual
+
+ban     -> delete account and ip put in ban list                                    -> ban user -ip/-n/-id [value]
+echo    -> prints whatever is written and prints some env variables                 -> echo:mirko has $n apples     // $n is set with env
+end     -> closes program -> closes sockets and everything else                     -> end now/XXy -> 05m           // default 60seconds
+env     -> lists, sets and deletes env variables                                    -> env set/rm/list      -> env set n 5
+help    -> prints command info banner                                               -> help env
+info    -> prints info from single class or database                                -> info user -n Mirko [property]
+kick    -> logs out the client                                                      -> kick user -ip/-n/-id [value]
+list    -> list helps print out everything we need to know                          -> list user/object/... [OPTION] <value>
+msg     -> send MessageBox pop-up to the client                                     -> msg user -ip/-n/-id [msg]
+nothing -> literally nothing :0                                                     -> none -> prints one of the quotes
+rm/add  -> manipulate database from here                                            -> ... mozda necu impl ovo
+start   -> starts server -> start ip:port                                           -> start now/XXy ip:port
+stop    -> stops server -> stops server                                             -> stop now/XXy
+time    -> prints out time statistics -> client connections and message sendings    -> ... mozda necu impl ovo
+visual  -> turns visual mode on or off -> more information                          -> visual on/off
+
+
+    time 
+    time user -a
+
+
+    list user [OPTION]
+        list user -a
+        list user -u MIRKO
+        list user -i 9
+    list object [OPTION]
+        list object -a
+        list object Book -a
+        list object Book -u
+        list object Book -i 9
+    list 
+
+
+    visual on
+    visual off
+
+
+
+
+
+
+
+
+
+
 
 nezavrseno
 + Server:HandleRequests -> thread handling requests from client
@@ -64,14 +108,6 @@ nezavrseno
 */
 
 
-//1
-verzija1:
-na login formi ubaciti dugme Login/Register
-verzija2:
-na user kontrolama ubaciti Login ili Register
-Zavisno od login-a se pojave opcije na meniju
-videti pripremiti funkcije za admina i korisnika, pa proslediti u delegat
-
 uopsteno opcije:
 [:USER:]
 Kreiranje naloga
@@ -94,40 +130,9 @@ pretrazivanje korisnika
 
 
 
-//2
-Domain dll napraviti ->
-Korisnik
-Autor
-Izdavac
-Knjiga
-StatusKnjige
 
 
 
-//3
-Login implementiraj
-validacija passworda barem
-
-
-
-//4
-Kontroler -> singleton prati nepromenljive varijable
-
-//5
-kreiraj bazu i dizajniraj je
-connOPEN
-connCLOSE
-InsertXXXX
-UpdateXXXX
-
-
-//6
-osmisli protokol izmedju klijenta i servera
-
-
-
-//N
-dizajniraj gui
 
 
 

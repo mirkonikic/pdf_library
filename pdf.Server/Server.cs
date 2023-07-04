@@ -12,8 +12,8 @@ namespace pdf.Server
 {
     public class Server
     {
-        public Socket serverSocket;
-        public DateTime serverStart; // cuvaj ovo mozda u databazi
+        private Socket serverSocket;
+        private bool running; // cuvaj ovo mozda u databazi
         // ideja mozda ovo ubaciti u singleton
 
         public Server() 
@@ -55,5 +55,7 @@ namespace pdf.Server
             serverSocket.Close();
             serverSocket = null;
         }
+
+        public bool isRunning() { return running == true; }
     }
 }

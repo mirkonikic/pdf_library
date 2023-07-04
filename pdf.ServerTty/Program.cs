@@ -23,7 +23,7 @@ namespace pdf.ServerTty
 
                 Main Loop -> Read -> Parser -> Controller -> Execute Command[Interface:Server:Handler:Broker:Domain]
             */
-            Controller.Instance.terminal.Banner(200);
+            Controller.Instance.terminal.Banner(50);
             while (!end){ Controller.Instance.parser.Parse(Controller.Instance.terminal.ReadLn()); }
         }
     }

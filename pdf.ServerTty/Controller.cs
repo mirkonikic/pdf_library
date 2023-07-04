@@ -33,7 +33,7 @@ namespace pdf.ServerTty
         }
         private Controller()
         {
-            terminal = new Terminal();
+            terminal = new Terminal(dbg:true);
             server = new Server();
             parser = new Parser();
         }
