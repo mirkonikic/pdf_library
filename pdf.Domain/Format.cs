@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace pdf.Domain
 {
-    public class Publisher
+    public class Format
     {
-        public int IzdavacID { get; set; }
-        public string ImeIzdavaca { get; set; }
-        public Publisher() { }
+        public int FormatID { get; set; }
+        public string Name { get; set; }
     }
 }

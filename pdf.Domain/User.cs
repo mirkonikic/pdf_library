@@ -12,7 +12,14 @@ namespace pdf.Domain
         public string Name { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public User() { }
+        public User() 
+        {
+            Random rnd = new Random();
+            Id = 0;
+            Name = "User_" + (DateTimeOffset.UtcNow.ToUnixTimeSeconds()).ToString();
+            Email = "default@gmail.com";
+            Address = "Default default 1337";
+        }
         public override string ToString()
         {
             return Name;

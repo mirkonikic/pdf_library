@@ -22,12 +22,13 @@ namespace pdf.ServerTty
         public Handler(Socket socket)
         {
             c = new Communication(socket);
+            user = new User();
         }
 
         // here implement protocol
         public void HandleRequests()
         {
-            Controller.Instance.terminal.PrintLn($"New Client connected {user.Name} {c.socket.RemoteEndPoint}!");
+            Controller.Instance.terminal.sPrintLn($"New Client connected {user.Name} {c.socket.RemoteEndPoint}!");
             // Ovde usluzujemo klijente, primljeni su i pokrenut je thread
             // Za sada samo vraca isti paket
             while (!end)
@@ -39,6 +40,6 @@ namespace pdf.ServerTty
         }
 
         public void Kick() { }
-        public void Message() { }
+        public void Message() {  }
     }
 }

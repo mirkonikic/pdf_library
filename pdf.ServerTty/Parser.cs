@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace pdf.ServerTty
@@ -157,12 +159,33 @@ namespace pdf.ServerTty
         public void list(string s) { }
         public void msg(string s) { }
         public void nothing(string s) { }
-        public void start(string s) 
-        {
-            Controller.Instance.server.Start("127.0.0.1", 9999); }
+        public void start(string s) { Controller.Instance.server.Start("127.0.0.1", 9999); Thread nit = new Thread(Controller.Instance.server.HandleClients); nit.Start();}
         public void stop(string s) { Controller.Instance.server.Stop(); }
         public void time(string s) { }
-        public void visual(string s) { }
+        public void visual(string s) 
+        {
+            if (s.Split().Length != 2)
+            {
+                Controller.Instance.terminal.ePrintLn("visual: wrong format of command");
+                Controller.Instance.terminal.vPrintLn($"input: {s}, should have been visual on or visual off");
+                return;
+            }
+
+            if (s.Split()[1] == "on")
+            {
+                Controller.Instance.terminal.setDebug(true);
+                Controller.Instance.terminal.sPrintLn("visual mode ON");
+            }
+            else if (s.Split()[1] == "off")
+            {
+                Controller.Instance.terminal.setDebug(false);
+                Controller.Instance.terminal.sPrintLn("visual mode OFF");
+            }
+            else 
+            {
+                Controller.Instance.terminal.ePrintLn($"visual: that option doesnt exist! {s.Split()[1]}");            
+            }
+        }
 
         public void whois()
         {
@@ -175,5 +198,17 @@ namespace pdf.ServerTty
             Controller.Instance.terminal.PrintLn("");
             Controller.Instance.terminal.PrintLn("-----------------------------------------------------------------");
         }
+
+        // Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+        // at pdf.ServerTty.Handler.HandleRequests() in C:\Users\mirko\source\repos\pdf_library\pdf.ServerTty\Handler.cs:line 30
+        // at System.Threading.ThreadHelper.ThreadStart_Context(Object state)
+        // at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+        // at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+        // at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+        // at System.Threading.ThreadHelper.ThreadStart()
+
+
+
+
     }
 }

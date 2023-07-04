@@ -43,9 +43,15 @@
   <ItemGroup>
     <Compile Include="Autor.cs" />
     <Compile Include="Book.cs" />
+    <Compile Include="BookStatus.cs" />
+    <Compile Include="Format.cs" />
+    <Compile Include="Jezik.cs" />
     <Compile Include="Publisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rating.cs" />
+    <Compile Include="Status.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Zanr.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

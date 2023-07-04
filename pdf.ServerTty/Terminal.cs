@@ -36,5 +36,6 @@ namespace pdf.ServerTty
         { setColor(12, 0); Console.Write(terminal_prompt[1]); setColor(15, 0); return Console.ReadLine(); }
         public void setColor(int fg, int bg)
         { Console.ForegroundColor = (ConsoleColor)fg;  Console.BackgroundColor = (ConsoleColor)bg; }
+        public void setDebug(bool dbg) { DEBUG = dbg; }
     }
 }

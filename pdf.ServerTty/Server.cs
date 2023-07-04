@@ -31,8 +31,6 @@ namespace pdf.ServerTty
                 IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip_addr), port);
                 serverSocket.Bind(endPoint);
                 serverSocket.Listen(10);
-                Thread nit = new Thread(Controller.Instance.server.HandleClients);
-                nit.Start();
                 Controller.Instance.terminal.vPrintLn($"Server started on address: {((IPEndPoint)serverSocket.LocalEndPoint).ToString()}");
             }
             else 
@@ -65,9 +63,17 @@ namespace pdf.ServerTty
 
         public void Stop()
         {
-            running = false;
-            serverSocket.Close();
-            serverSocket = null;
+            if (running != false)
+            {
+                running = false;
+                serverSocket.Close();
+                serverSocket = null;
+                Controller.Instance.terminal.vPrintLn($"Server stopped! {(serverSocket)}");
+            }
+            else 
+            {
+                Controller.Instance.terminal.ePrintLn($"Error: server is not running!");
+            }
         }
 
         public Boolean isNull() { return (serverSocket == null); }

@@ -73,6 +73,7 @@ visual  -> turns visual mode on or off -> more information                      
 nezavrseno
 + Server:HandleRequests -> thread handling requests from client
 + Server:CommandParser  -> thread handling requests from GUI server
++ Server:Domains        -> all templates for db tables
 - Server:DataBase       -> setup database and methods for db manipulation
 - Server:Protocol       -> define protocol for communication
 - Client:Everything
