@@ -59,6 +59,10 @@
       <Project>{3f0c8c90-216f-4670-9e16-154dfc1fe654}</Project>
       <Name>pdf.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\pdf.DbBroker\pdf.DbBroker.csproj">
+      <Project>{e1a49ce3-7265-4e06-b35b-f46581e48762}</Project>
+      <Name>pdf.DbBroker</Name>
+    </ProjectReference>
     <ProjectReference Include="..\pdf.Domain\pdf.Domain.csproj">
       <Project>{46948dd1-fcde-44c2-8f0e-49bbb60fd1ca}</Project>
       <Name>pdf.Domain</Name>
