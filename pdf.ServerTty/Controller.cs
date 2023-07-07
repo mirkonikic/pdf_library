@@ -19,7 +19,7 @@ namespace pdf.ServerTty
         public Terminal terminal;
         public Server server;
         public Parser parser;
-        public DbBroker broker;
+        public Broker broker;
         public List<Handler> clients = new List<Handler>();
 
         private static Controller instance;
@@ -35,6 +35,7 @@ namespace pdf.ServerTty
         private Controller()
         {
             terminal = new Terminal(dbg:true);
+            broker = new Broker();
             server = new Server();
             parser = new Parser();
         }

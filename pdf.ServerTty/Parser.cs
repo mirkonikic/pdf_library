@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pdf.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -18,7 +19,7 @@ namespace pdf.ServerTty
 
         // finish full parser here
 
-        public enum Commands { ban, echo, quit, env, help, info, kick, list, msg, nothing, start, stop, time, visual }
+        public enum Commands { ban, create, echo, quit, env, help, info, kick, list, msg, nothing, start, stop, time, visual }
         public enum Tokens { command, option, numeric, alphabet, alphanumeric, semicolon, colon, pipe, equal, two_exclamation_marks, env_var }
 
         public Parser() { }
@@ -117,6 +118,7 @@ namespace pdf.ServerTty
             switch (c)
             {
                 case Commands.ban: ban(s); break;
+                case Commands.create: create(s); break;
                 case Commands.echo: echo(s); break;
                 case Commands.quit: quit(s); break;
                 case Commands.env: env(s); break;
@@ -135,7 +137,11 @@ namespace pdf.ServerTty
         }
 
         public void ban(string s) { }
-        public void echo(string s) { }
+        public void create(string s) { }
+        public void echo(string s) 
+        {
+
+        }
         public void quit(string s) { }
         public void env(string s) { }
         public void help(string s)
@@ -156,7 +162,55 @@ namespace pdf.ServerTty
         }
         public void info(string s) { }
         public void kick(string s) { }
-        public void list(string s) { }
+        public void list(string s) 
+        {
+            string[] argv = s.Split(' ');
+
+            // list OBJECT[to_list] OPTION[about_object]
+            /*
+                list user [OPTION]      -> ClientHandlerList
+                list object [OPTION]    -> broker.*
+
+            eg.
+                list user -a
+                list user -u MIRKO
+                list user -i 9
+                list object -a
+                list object Book -a
+                list object Book -u
+                list object Book -i 9 
+            */
+
+            switch (argv[1]) 
+            { 
+                case "user":
+                    
+                    break;
+                case "object":
+                    if (argv[2] == "user")
+                    {
+                        List<User> ul = Controller.Instance.broker.UcitajKorisnike();
+                        foreach (var i in ul) { Controller.Instance.terminal.sPrintLn($"{i.UserName} {i.Name} {i.LastName} {i.Email} {i.Address}"); }
+                    }
+                    else if (argv[2] == "book")
+                    {
+                        List<Book> bl = Controller.Instance.broker.UcitajKnjige();
+                        foreach (var i in bl) { Controller.Instance.terminal.sPrintLn($"{i.ImeKnjige} {i.BrStrana} {i.FormatKnjige.Name} {i.DatPublished}"); }
+                    }
+                    else
+                        Controller.Instance.terminal.ePrintLn("that object doesnt exist!");
+                    break;
+                default: break; 
+            }
+
+            // foreach (var i in argv) { Controller.Instance.terminal.sPrintLn(i); }
+        }
+
+        private void swtich(string v)
+        {
+            throw new NotImplementedException();
+        }
+
         public void msg(string s) { }
         public void nothing(string s) { }
         public void start(string s) { Controller.Instance.server.Start("127.0.0.1", 9999); Thread nit = new Thread(Controller.Instance.server.HandleClients); nit.Start();}
@@ -185,18 +239,6 @@ namespace pdf.ServerTty
             {
                 Controller.Instance.terminal.ePrintLn($"visual: that option doesnt exist! {s.Split()[1]}");            
             }
-        }
-
-        public void whois()
-        {
-            Controller.Instance.terminal.PrintLn("");
-            Controller.Instance.terminal.PrintLn("WHOIS ONLINE:");
-            for (int i = 0; i < Controller.Instance.clients.Count; i++)
-            {
-                Controller.Instance.terminal.PrintLn (Controller.Instance.clients[i].ToString());
-            }
-            Controller.Instance.terminal.PrintLn("");
-            Controller.Instance.terminal.PrintLn("-----------------------------------------------------------------");
         }
 
         // Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object.

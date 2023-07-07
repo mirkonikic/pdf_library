@@ -64,6 +64,28 @@ visual  -> turns visual mode on or off -> more information                      
 
 
 
+Vidi da li ces da implementiras za sve Napravi i Obrisi ili samo sta je navedeno
+Sada sledi protokol i klijent
+
+- PROBLEMI:
++ admin ne moze da napravi nov format/zanr/...
+    :resenje: mozda napraviti da kad se doda nova knjiga sa spec formatom, tad da doda tek
+    :resenje: drugo mozda da dodam da se ubacuju i formati itd kod admina
+    :resenje: trece, mozda samo da ostavim kao sto je u dokumentaciji, bez dodatih formata itd..
+    -> radim samo nad user, book and bookstatus, necu dirati ostale
+- klijent jos nema GUI
+    :resenje: implementirati
+- protokol ne postoji
+    :resenje: osmisliti
+- parser nema sve komande jos
+    :resenje: implementirati
+- podesiti isti jezik u bazi i programu
+- razmisli mozda je lakse implementirati sve kao enumeratore
+- implementirati osnovni kompajler sa AST pa izvrsavati funkcije tako -> sve bolje izgleda impl enum
+- unaprediti jezik servera u mali kompajler
+- gotovo!
+
+
 
 
 
@@ -74,7 +96,7 @@ nezavrseno
 + Server:HandleRequests -> thread handling requests from client
 + Server:CommandParser  -> thread handling requests from GUI server
 + Server:Domains        -> all templates for db tables
-- Server:DataBase       -> setup database and methods for db manipulation
++ Server:DataBase       -> setup database and methods for db manipulation
 - Server:Protocol       -> define protocol for communication
 - Client:Everything
 - _Both_:Additional		-> specific quirks
