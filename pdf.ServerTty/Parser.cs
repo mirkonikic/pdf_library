@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace pdf.ServerTty
 {
@@ -19,7 +21,7 @@ namespace pdf.ServerTty
 
         // finish full parser here
 
-        public enum Commands { ban, create, echo, quit, env, help, info, kick, list, msg, nothing, start, stop, time, visual }
+        public enum Commands { add, ban, echo, env, help, info, kick, list, msg, nothing, quit, start, stop, time, visual }
         public enum Tokens { command, option, numeric, alphabet, alphanumeric, semicolon, colon, pipe, equal, two_exclamation_marks, env_var }
 
         public Parser() { }
@@ -59,14 +61,14 @@ namespace pdf.ServerTty
             Commands cmd = Commands.nothing;
             switch (input.Split(' ')[0])
             {
+                case "add":
+                    cmd = Commands.add;
+                    break;
                 case "ban":
                     cmd = Commands.ban;
                     break;
                 case "echo":
                     cmd = Commands.echo;
-                    break;
-                case "quit":
-                    cmd = Commands.quit;
                     break;
                 case "env":
                     cmd = Commands.env;
@@ -88,6 +90,9 @@ namespace pdf.ServerTty
                     break;
                 case "nothing":
                     cmd = Commands.nothing;
+                    break;
+                case "quit":
+                    cmd = Commands.quit;
                     break;
                 case "start":
                     cmd = Commands.start;
@@ -117,32 +122,95 @@ namespace pdf.ServerTty
             }
             switch (c)
             {
-                case Commands.ban: ban(s); break;
-                case Commands.create: create(s); break;
+                //case Commands.ban: ban(s); break;
+                case Commands.add: add(s); break;
                 case Commands.echo: echo(s); break;
-                case Commands.quit: quit(s); break;
-                case Commands.env: env(s); break;
+                //case Commands.env: env(s); break;
                 case Commands.help: help(s); break;
-                case Commands.info: info(s); break;
-                case Commands.kick: kick(s); break;
+                //case Commands.info: info(s); break;
+                //case Commands.kick: kick(s); break;
                 case Commands.list: list(s); break;
-                case Commands.msg: msg(s); break;
-                case Commands.nothing: nothing(s); break;
+                //case Commands.msg: msg(s); break;
+                //case Commands.nothing: nothing(s); break;
+                case Commands.quit: quit(s); break;
                 case Commands.start: start(s); break;
                 case Commands.stop: stop(s); break;
-                case Commands.time: time(s); break;
+                //case Commands.time: time(s); break;
                 case Commands.visual: visual(s); break;
                 default: break;
             }
         }
 
+        public void add(string s) 
+        {
+            // create book or user
+            string[] argv = s.Split(' ');
+            switch (argv[1])
+            {
+                case "object":
+                    if (argv[2] == "user")
+                    {
+                        Book b = new Book();
+
+                        // get user parameters
+                        // usrnm name lastname address email
+                        Controller.Instance.terminal.sPrintLn("---------- BOOK CREATING PROCESS STARTED ----------");
+                        
+                        // not implemented since i dont know how to interract with AutorID or ZanrID..
+                        //  ideja: implement ReadAuthors -> sPrintLn: choose one of the following authors or 0 to insert your own
+                        //  ideja: insert first and last name for the author -> we dont have anyone named like that please insert him into the database
+                        //          or we found these authors, please type in the number of the author or 0 to insert your own
+
+
+
+                        Controller.Instance.terminal.vPrintLn($"BOOK CREATING PROCESS NOT IMPLEMENTED YET");
+
+                        Controller.Instance.terminal.sPrintLn("---------- BOOK CREATING PROCESS ENDED__ ----------");
+                        Controller.Instance.terminal.sPrintLn("");
+                    }
+                    else if (argv[2] == "book")
+                    {
+                        User u = new User();
+
+                        // get user parameters
+                        // usrnm name lastname address email
+                        Controller.Instance.terminal.sPrintLn("---------- BOOK CREATING PROCESS STARTED ----------");
+                        Controller.Instance.terminal.sPrintLn("");
+                        Controller.Instance.terminal.sPrintLn("    Type in the username:");
+                        u.UserName = Controller.Instance.terminal.ReadLn();
+                        Controller.Instance.terminal.sPrintLn("    Type in the password:");
+                        u.Password = Controller.Instance.terminal.ReadLn();
+                        Controller.Instance.terminal.sPrintLn("    Type in the first name:");
+                        u.Name = Controller.Instance.terminal.ReadLn();
+                        Controller.Instance.terminal.sPrintLn("    Type in the last name:");
+                        u.LastName = Controller.Instance.terminal.ReadLn();
+                        Controller.Instance.terminal.sPrintLn("    Type in the email:");
+                        u.Email = Controller.Instance.terminal.ReadLn();
+                        Controller.Instance.terminal.sPrintLn("    Type in the address:");
+                        u.Address = Controller.Instance.terminal.ReadLn();
+
+
+                        bool us = Controller.Instance.broker.NapraviKorisnika(u);
+                        Controller.Instance.terminal.vPrintLn($"book process creating finished well: {us}");
+                        Controller.Instance.terminal.sPrintLn("---------- BOOK CREATING PROCESS ENDED__ ----------");
+                        Controller.Instance.terminal.sPrintLn("");
+                    }
+                    else
+                        Controller.Instance.terminal.ePrintLn("that object doesnt exist!");
+                    break;
+                default: break;
+            }
+
+        }
         public void ban(string s) { }
-        public void create(string s) { }
         public void echo(string s) 
         {
 
         }
-        public void quit(string s) { }
+        public void quit(string s) 
+        {
+            Environment.Exit(1);
+        }
         public void env(string s) { }
         public void help(string s)
         { /*
@@ -152,6 +220,9 @@ namespace pdf.ServerTty
                     * use help with any of them to find out more about each one
             
             */
+
+            // based on number of args, you can create help {COMMAND} or help {COMMAND} <option>
+
             Controller.Instance.terminal.tPrintLn("", 10);
             Controller.Instance.terminal.tPrintLn("\tPdfLib v0.1 -> server", 10);
             Controller.Instance.terminal.tPrintLn("\t\tServer commands: ban, echo, quit, env, help, kick, list, msg, nothing, start, stop, time, visual", 10);
@@ -181,21 +252,29 @@ namespace pdf.ServerTty
                 list object Book -i 9 
             */
 
+            // implement more options in list
+
+            if(argv.Length < 2)
+                return;
+
             switch (argv[1]) 
             { 
                 case "user":
-                    
+                    foreach (var i in Controller.Instance.clients) { Controller.Instance.terminal.vPrintLn($"{i.user.UserName} {i.user.Name} {i.user.LastName} {i.user.Email} {i.user.Address} isdeleted:{i.user.isDeleted} admin:{i.user.isAdmin}"); }
                     break;
                 case "object":
                     if (argv[2] == "user")
                     {
                         List<User> ul = Controller.Instance.broker.UcitajKorisnike();
-                        foreach (var i in ul) { Controller.Instance.terminal.sPrintLn($"{i.UserName} {i.Name} {i.LastName} {i.Email} {i.Address}"); }
+                        Controller.Instance.terminal.sPrintLn($"In database there is {ul.Count} {argv[2]} objects");
+                        foreach (var i in ul) { Controller.Instance.terminal.vPrintLn($"{i.UserName} {i.Name} {i.LastName} {i.Email} {i.Address} isdeleted:{i.isDeleted} admin:{i.isAdmin}"); }
                     }
                     else if (argv[2] == "book")
                     {
+                        // ispisi broj ili imena ili neku spec kolonu ili ime:adresa
                         List<Book> bl = Controller.Instance.broker.UcitajKnjige();
-                        foreach (var i in bl) { Controller.Instance.terminal.sPrintLn($"{i.ImeKnjige} {i.BrStrana} {i.FormatKnjige.Name} {i.DatPublished}"); }
+                        Controller.Instance.terminal.sPrintLn($"In database there is {bl.Count} {argv[2]} objects");
+                        foreach (var i in bl) { Controller.Instance.terminal.vPrintLn($"{i.ImeKnjige} {i.BrStrana} {i.FormatKnjige.Name} {i.DatPublished}"); }
                     }
                     else
                         Controller.Instance.terminal.ePrintLn("that object doesnt exist!");
@@ -213,7 +292,26 @@ namespace pdf.ServerTty
 
         public void msg(string s) { }
         public void nothing(string s) { }
-        public void start(string s) { Controller.Instance.server.Start("127.0.0.1", 9999); Thread nit = new Thread(Controller.Instance.server.HandleClients); nit.Start();}
+        public void start(string s) 
+        {
+            int port = 9999;
+            if (s.Split(' ').Length == 2)
+            {
+                try
+                {
+                    port = int.Parse(s.Split(' ')[1]);
+
+                }
+                catch(Exception ex)
+                {
+                    port = 9999;
+                }
+            }
+
+            Controller.Instance.server.Start("127.0.0.1", port);
+            Thread nit = new Thread(Controller.Instance.server.HandleClients); 
+            nit.Start();
+        }
         public void stop(string s) { Controller.Instance.server.Stop(); }
         public void time(string s) { }
         public void visual(string s) 
@@ -240,17 +338,5 @@ namespace pdf.ServerTty
                 Controller.Instance.terminal.ePrintLn($"visual: that option doesnt exist! {s.Split()[1]}");            
             }
         }
-
-        // Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object.
-        // at pdf.ServerTty.Handler.HandleRequests() in C:\Users\mirko\source\repos\pdf_library\pdf.ServerTty\Handler.cs:line 30
-        // at System.Threading.ThreadHelper.ThreadStart_Context(Object state)
-        // at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-        // at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-        // at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
-        // at System.Threading.ThreadHelper.ThreadStart()
-
-
-
-
     }
 }

@@ -67,7 +67,26 @@ visual  -> turns visual mode on or off -> more information                      
 Vidi da li ces da implementiras za sve Napravi i Obrisi ili samo sta je navedeno
 Sada sledi protokol i klijent
 
-- PROBLEMI:
+
+
+
+- implement exception handlers
+- finish GUI forms -> zanimljivo resenje sam smislio za kontrolisanje GUI formi
++ napravi lepsi GUI
+
+
+- fix problem with terminal server prompts -> overwriteuju se
+- ulepsati validaciju -> real time
+- create more generics
+
+
+
+- povrsno LoginForm je gotov skroz -> slede User i Admin Form
+
+- sredi sto ostanu u listi korisnici i kad se izloguju
+
+
+- PROBLEMI -> pitati Tatjanu:
 + admin ne moze da napravi nov format/zanr/...
     :resenje: mozda napraviti da kad se doda nova knjiga sa spec formatom, tad da doda tek
     :resenje: drugo mozda da dodam da se ubacuju i formati itd kod admina

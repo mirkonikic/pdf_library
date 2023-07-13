@@ -15,21 +15,9 @@ namespace pdf.Client
         [STAThread]
         static void Main()
         {
-            // Controller.Instance.InitLogin();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            LoginForm lf = new LoginForm();
-            DialogResult dr = lf.ShowDialog();
-            lf.Dispose();
-            if (dr == DialogResult.OK)
-            {
-                Application.Run(new UserForm());
-            }
-            else if (dr == DialogResult.Yes) 
-            {
-                Application.Run(new AdminForm());
-            }
+            Controller.Instance.InitForm(FormInUse.LoginForm);
         }
     }
 }

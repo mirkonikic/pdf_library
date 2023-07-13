@@ -8,7 +8,7 @@ namespace pdf.Common
 {
     public static class Criteria
     {
-        public enum UserCriteria { id, username, name, lastname, email, address }
+        public enum UserCriteria { id, username, name, lastname, email, address, isDeleted, isAdmin }
         public enum BookCriteria { id, name, page_num, format, date_pub, isbn, genre, language, author, publisher }
         public enum BookStatusCriteria { KorisnikID, KnjigaID, BrProcitanihStrana, StatusKnjige, DatAdded, DatLastModified, Rating, Feedback }
     }

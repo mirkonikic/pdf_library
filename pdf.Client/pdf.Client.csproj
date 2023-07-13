@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminUserControls\AllUsersUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdminUserControls\AllUsersUC.Designer.cs">
+      <DependentUpon>AllUsersUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Client.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Forms\AdminForm.cs">
@@ -66,20 +72,60 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoginUserControls\RegisterUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LoginUserControls\RegisterUC.Designer.cs">
+      <DependentUpon>RegisterUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\BannerUC.cs">
+    <Compile Include="LoginUserControls\BannerUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\BannerUC.Designer.cs">
+    <Compile Include="LoginUserControls\BannerUC.Designer.cs">
       <DependentUpon>BannerUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\LoginUC.cs">
+    <Compile Include="LoginUserControls\LoginUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\LoginUC.Designer.cs">
+    <Compile Include="LoginUserControls\LoginUC.Designer.cs">
       <DependentUpon>LoginUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Speaker.cs" />
+    <Compile Include="UserUserControls\AboutUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserUserControls\AboutUC.Designer.cs">
+      <DependentUpon>AboutUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserUserControls\AllBooksUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserUserControls\AllBooksUC.Designer.cs">
+      <DependentUpon>AllBooksUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserUserControls\HelpUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserUserControls\HelpUC.Designer.cs">
+      <DependentUpon>HelpUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserUserControls\MyBooksUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserUserControls\MyBooksUC.Designer.cs">
+      <DependentUpon>MyBooksUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserUserControls\ProfileUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserUserControls\ProfileUC.Designer.cs">
+      <DependentUpon>ProfileUC.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AdminUserControls\AllUsersUC.resx">
+      <DependentUpon>AllUsersUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -89,16 +135,34 @@
     <EmbeddedResource Include="Forms\UserForm.resx">
       <DependentUpon>UserForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LoginUserControls\RegisterUC.resx">
+      <DependentUpon>RegisterUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\BannerUC.resx">
+    <EmbeddedResource Include="LoginUserControls\BannerUC.resx">
       <DependentUpon>BannerUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\LoginUC.resx">
+    <EmbeddedResource Include="LoginUserControls\LoginUC.resx">
       <DependentUpon>LoginUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUserControls\AboutUC.resx">
+      <DependentUpon>AboutUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUserControls\AllBooksUC.resx">
+      <DependentUpon>AllBooksUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUserControls\HelpUC.resx">
+      <DependentUpon>HelpUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUserControls\MyBooksUC.resx">
+      <DependentUpon>MyBooksUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUserControls\ProfileUC.resx">
+      <DependentUpon>ProfileUC.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -128,5 +192,6 @@
       <Name>pdf.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

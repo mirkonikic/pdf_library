@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.Remoting.Messaging;
+using System.IO;
 
 namespace pdf.ServerTty
 {
@@ -24,18 +25,25 @@ namespace pdf.ServerTty
 
         public void Start(string ip_addr, int port)
         {
-            if (running != true)
+            try
             {
-                running = true;
-                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip_addr), port);
-                serverSocket.Bind(endPoint);
-                serverSocket.Listen(10);
-                Controller.Instance.terminal.vPrintLn($"Server started on address: {((IPEndPoint)serverSocket.LocalEndPoint).ToString()}");
+                if (running != true)
+                {
+                    running = true;
+                    serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip_addr), port);
+                    serverSocket.Bind(endPoint);
+                    serverSocket.Listen(10);
+                    Controller.Instance.terminal.vPrintLn($"Server started on address: {((IPEndPoint)serverSocket.LocalEndPoint).ToString()}");
+                }
+                else
+                {
+                    Controller.Instance.terminal.ePrintLn($"Error: server is already running on port: {((IPEndPoint)serverSocket.LocalEndPoint).Port}");
+                }
             }
-            else 
+            catch (IOException ex)
             {
-                Controller.Instance.terminal.ePrintLn($"Error: server is already running on port: {((IPEndPoint)serverSocket.LocalEndPoint).Port}");
+                Controller.Instance.terminal.ePrintLn($"Exception caught: {ex.Message}");
             }
         }
 

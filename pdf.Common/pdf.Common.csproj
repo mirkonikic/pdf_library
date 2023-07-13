@@ -43,8 +43,11 @@
   <ItemGroup>
     <Compile Include="Communication.cs" />
     <Compile Include="Criteria.cs" />
-    <Compile Include="Packet.cs" />
+    <Compile Include="CriteriaArg.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="Response.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

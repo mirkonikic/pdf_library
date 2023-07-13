@@ -33,7 +33,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.homeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.main_panel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +64,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.homeToolStripMenuItem,
             this.loginToolStripMenuItem,
-            this.registerToolStripMenuItem});
+            this.registerToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 599);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1130, 28);
@@ -85,10 +85,12 @@
             this.loginToolStripMenuItem.Text = "Login";
             this.loginToolStripMenuItem.Click += new System.EventHandler(this.loginToolStripMenuItem_Click);
             // 
-            // registerToolStripMenuItem
+            // registerToolStripMenuItem1
             // 
-            this.registerToolStripMenuItem.Name = "registerToolStripMenuItem";
-            this.registerToolStripMenuItem.Size = new System.Drawing.Size(14, 24);
+            this.registerToolStripMenuItem1.Name = "registerToolStripMenuItem1";
+            this.registerToolStripMenuItem1.Size = new System.Drawing.Size(77, 24);
+            this.registerToolStripMenuItem1.Text = "Register";
+            this.registerToolStripMenuItem1.Click += new System.EventHandler(this.registerToolStripMenuItem1_Click);
             // 
             // LoginForm
             // 
@@ -122,8 +124,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem homeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registerToolStripMenuItem;
         private UserControls.LoginUC loginUC1;
+        private System.Windows.Forms.ToolStripMenuItem registerToolStripMenuItem1;
     }
 }
 

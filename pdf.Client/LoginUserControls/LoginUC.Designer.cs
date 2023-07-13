@@ -36,12 +36,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.ip_lbl = new System.Windows.Forms.Label();
             this.port_lbl = new System.Windows.Forms.Label();
+            this.name_label = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(485, 258);
+            this.label1.Location = new System.Drawing.Point(210, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 16);
             this.label1.TabIndex = 0;
@@ -49,15 +52,15 @@
             // 
             // username_txt
             // 
-            this.username_txt.Location = new System.Drawing.Point(562, 252);
+            this.username_txt.Location = new System.Drawing.Point(287, 11);
             this.username_txt.Name = "username_txt";
-            this.username_txt.Size = new System.Drawing.Size(100, 22);
+            this.username_txt.Size = new System.Drawing.Size(136, 22);
             this.username_txt.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(486, 292);
+            this.label2.Location = new System.Drawing.Point(211, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 16);
             this.label2.TabIndex = 2;
@@ -65,19 +68,23 @@
             // 
             // passwd_txt
             // 
-            this.passwd_txt.Location = new System.Drawing.Point(562, 286);
+            this.passwd_txt.Location = new System.Drawing.Point(287, 45);
             this.passwd_txt.Name = "passwd_txt";
-            this.passwd_txt.Size = new System.Drawing.Size(100, 22);
+            this.passwd_txt.PasswordChar = '^';
+            this.passwd_txt.Size = new System.Drawing.Size(136, 22);
             this.passwd_txt.TabIndex = 3;
             // 
             // login_btn
             // 
-            this.login_btn.Location = new System.Drawing.Point(530, 332);
+            this.login_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.login_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.login_btn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.login_btn.Location = new System.Drawing.Point(10, 217);
             this.login_btn.Name = "login_btn";
-            this.login_btn.Size = new System.Drawing.Size(75, 28);
+            this.login_btn.Size = new System.Drawing.Size(137, 36);
             this.login_btn.TabIndex = 4;
             this.login_btn.Text = "login";
-            this.login_btn.UseVisualStyleBackColor = true;
+            this.login_btn.UseVisualStyleBackColor = false;
             this.login_btn.Click += new System.EventHandler(this.login_btn_Click);
             // 
             // label3
@@ -107,20 +114,45 @@
             this.port_lbl.TabIndex = 7;
             this.port_lbl.Text = ":9999";
             // 
+            // name_label
+            // 
+            this.name_label.AutoSize = true;
+            this.name_label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.name_label.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.name_label.Location = new System.Drawing.Point(3, 0);
+            this.name_label.Name = "name_label";
+            this.name_label.Size = new System.Drawing.Size(102, 38);
+            this.name_label.TabIndex = 8;
+            this.name_label.Text = "LOGIN";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.name_label);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.username_txt);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.login_btn);
+            this.panel1.Controls.Add(this.passwd_txt);
+            this.panel1.Location = new System.Drawing.Point(346, 171);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(436, 267);
+            this.panel1.TabIndex = 9;
+            // 
             // LoginUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.port_lbl);
             this.Controls.Add(this.ip_lbl);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.login_btn);
-            this.Controls.Add(this.passwd_txt);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.username_txt);
-            this.Controls.Add(this.label1);
             this.Name = "LoginUC";
             this.Size = new System.Drawing.Size(1130, 598);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,5 +168,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label ip_lbl;
         private System.Windows.Forms.Label port_lbl;
+        private System.Windows.Forms.Label name_label;
+        private System.Windows.Forms.Panel panel1;
     }
 }

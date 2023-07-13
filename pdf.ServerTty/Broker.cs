@@ -89,6 +89,7 @@ namespace pdf.ServerTty
                         u.Email = (string)reader["Email"];
                         u.Address = (string)reader["Adresa"];
                         u.isDeleted = (bool)reader["isDeleted"];
+                        u.isAdmin = (bool)reader["isAdmin"];
                     };
 
                     list.Add(u);
@@ -98,7 +99,7 @@ namespace pdf.ServerTty
             broker.Close();
             return list; 
         }
-        public List<User> PretraziKorisnike(Criteria.UserCriteria uc, string value) 
+        public List<User> PretraziKorisnike(CriteriaArg ca) 
         {
             // string columnName = uc.ToString();
             // string query = $"SELECT * FROM Korisnik WHERE {columnName} LIKE @value";
@@ -111,7 +112,7 @@ namespace pdf.ServerTty
             cmd.Connection = broker.returnConnection();
 
             string columnName = "";
-            switch (uc)
+            switch (ca.uc)
             {
                 case Criteria.UserCriteria.id:
                     columnName = "KorisnikID";
@@ -131,10 +132,16 @@ namespace pdf.ServerTty
                 case Criteria.UserCriteria.address:
                     columnName = "Adresa";
                     break;
+                case Criteria.UserCriteria.isDeleted:
+                    columnName = "isDeleted";
+                    break;
+                case Criteria.UserCriteria.isAdmin:
+                    columnName = "isAdmin";
+                    break;
             }
 
             cmd.CommandText = $"SELECT * FROM Korisnik WHERE {columnName} = @value";
-            cmd.Parameters.AddWithValue("@value", value);
+            cmd.Parameters.AddWithValue("@value", ca.val);
 
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
@@ -149,7 +156,8 @@ namespace pdf.ServerTty
                         LastName = (string)reader["Prezime"],
                         Email = (string)reader["Email"],
                         Address = (string)reader["Adresa"],
-                        isDeleted = (bool)reader["isDeleted"]
+                        isDeleted = (bool)reader["isDeleted"],
+                        isAdmin = (bool)reader["isAdmin"]
                     };
 
                     list.Add(u);
@@ -178,6 +186,7 @@ namespace pdf.ServerTty
                     u.Email = (string)reader["Email"];
                     u.Address = (string)reader["Adresa"];
                     u.isDeleted = (bool)reader["isDeleted"];
+                    u.isAdmin = (bool)reader["isAdmin"];
 
                     return u;
                 }
@@ -191,7 +200,7 @@ namespace pdf.ServerTty
             broker.Open();
 
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = $"UPDATE Korisnik SET username = @username, Ime = @ime, Prezime = @prezime, Email = @email, Adresa = @adresa WHERE KorisnikID = @id";
+            cmd.CommandText = $"UPDATE Korisnik SET username = @username, Ime = @ime, Prezime = @prezime, Email = @email, Adresa = @adresa, Password = @password WHERE KorisnikID = @id";
             cmd.Connection = broker.returnConnection();
 
             cmd.Parameters.AddWithValue("@username", u.UserName);
@@ -200,8 +209,14 @@ namespace pdf.ServerTty
             cmd.Parameters.AddWithValue("@email", u.Email);
             cmd.Parameters.AddWithValue("@adresa", u.Address);
             cmd.Parameters.AddWithValue("@id", u.Id);
+            cmd.Parameters.AddWithValue("@password", u.Password);
+            
+            Controller.Instance.terminal.vPrintLn(cmd.CommandText);
 
             int n = cmd.ExecuteNonQuery();
+
+            Controller.Instance.terminal.vPrintLn($"{n} rows affected for {u.Id}");
+
 
             broker.Close();
 
@@ -700,5 +715,9 @@ namespace pdf.ServerTty
 
             return listaIzdavaca;
         }
+    
+        // mozda Ucitaj sve zivo za laksi rad sa klasama!
+    
     }
+
 }

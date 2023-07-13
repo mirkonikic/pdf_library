@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace pdf.Domain
 {
+    [Serializable]
     public class User
     {
         public int Id { get; set; }
@@ -16,6 +17,7 @@ namespace pdf.Domain
         public string Email { get; set; }
         public string Address { get; set; }
         public bool isDeleted { get; set; }
+        public bool isAdmin { get; set; }
         public User() 
         {
             Random rnd = new Random();
@@ -26,6 +28,7 @@ namespace pdf.Domain
             Email = "default@gmail.com";
             Address = "Default default 1337";
             isDeleted = false;
+            isAdmin = false;
         }
         public override string ToString()
         {
