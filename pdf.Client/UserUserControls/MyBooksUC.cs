@@ -133,6 +133,7 @@ namespace pdf.Client.UserUserControls
             status.Add(bs);
             // add to created
             addedRows.Add(status_dgv.RowCount-1);
+            //addedRows.Add(((status_dgv.Rows[status_dgv.RowCount-1].DataBoundItem) as BookStatus).Knjiga.KnjigaID);
             updateCellsCombo();
         }
 
@@ -213,7 +214,8 @@ namespace pdf.Client.UserUserControls
 
             // add rowIndex u editedRows
             // validate edit value
-            editedRows.Add(status_dgv.SelectedCells[0].RowIndex);
+            editedRows.Add(((status_dgv.Rows[e.RowIndex].DataBoundItem) as BookStatus).Knjiga.KnjigaID);
+            Debug.WriteLine(((status_dgv.Rows[e.RowIndex].DataBoundItem) as BookStatus).Knjiga.KnjigaID);
 
             // check enum list what is being filtered 
             // check textbox and send it as Pretrazi Korisnike
