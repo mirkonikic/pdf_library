@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace pdf.Domain
 {
-    public class Jezik
+    public enum Jezik
     {
-        public int JezikID { get; set; }
-        public string Name { get; set; }
+        NotSet = 0,
+        Srpski = 1,
+        Engleski = 2,
+        Nemacki = 3
     }
 }

@@ -51,7 +51,8 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1130, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1131, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -92,12 +93,14 @@
             this.allBooksToolStripMenuItem.Name = "allBooksToolStripMenuItem";
             this.allBooksToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.allBooksToolStripMenuItem.Text = "All Books";
+            this.allBooksToolStripMenuItem.Click += new System.EventHandler(this.allBooksToolStripMenuItem_Click);
             // 
             // createBookToolStripMenuItem
             // 
             this.createBookToolStripMenuItem.Name = "createBookToolStripMenuItem";
             this.createBookToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.createBookToolStripMenuItem.Text = "Create Book";
+            this.createBookToolStripMenuItem.Click += new System.EventHandler(this.createBookToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -115,19 +118,21 @@
             // 
             // main_panel
             // 
-            this.main_panel.Location = new System.Drawing.Point(12, 31);
+            this.main_panel.Location = new System.Drawing.Point(0, 31);
+            this.main_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.main_panel.Name = "main_panel";
-            this.main_panel.Size = new System.Drawing.Size(1106, 584);
+            this.main_panel.Size = new System.Drawing.Size(1131, 596);
             this.main_panel.TabIndex = 1;
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1130, 627);
+            this.ClientSize = new System.Drawing.Size(1131, 626);
             this.Controls.Add(this.main_panel);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AdminForm";
             this.Text = "AdminForm";
             this.menuStrip1.ResumeLayout(false);

@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace pdf.Domain
 {
-    public class Rating
+    public enum Rating
     {
-        public int RatingID { get; set; }
-        public string Name { get; set; }
+        NotSet = 0,
+        Nije_mi_se_dopalo = 1,
+        Malo_mi_se_dopalo = 2,
+        Okej_je = 3,
+        Veoma_je_dobro = 4,
+        Bas_je_dobro = 5
     }
 }

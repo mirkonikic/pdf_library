@@ -271,17 +271,22 @@ namespace pdf.ServerTty
 
             cmd.Parameters.AddWithValue("@imeKnjige", b.ImeKnjige);
             cmd.Parameters.AddWithValue("@brStrana", b.BrStrana);
-            cmd.Parameters.AddWithValue("@formatKnjigeID", b.FormatKnjige.FormatID);
+            cmd.Parameters.AddWithValue("@formatKnjigeID", (int)b.FormatKnjige);
             cmd.Parameters.AddWithValue("@datPublished", b.DatPublished);
             cmd.Parameters.AddWithValue("@isbn", b.ISBN);
-            cmd.Parameters.AddWithValue("@zanrID", b.Zanr.ZanrID);
-            cmd.Parameters.AddWithValue("@jezikID", b.Jezik.JezikID);
+            cmd.Parameters.AddWithValue("@zanrID", (int)b.Zanr);
+            cmd.Parameters.AddWithValue("@jezikID", (int)b.Jezik);
             cmd.Parameters.AddWithValue("@opisKnjige", b.OpisKnjige);
             cmd.Parameters.AddWithValue("@verzijaKnjige", b.VerzijaKnjige);
             cmd.Parameters.AddWithValue("@autorID", b.AutorID);
             cmd.Parameters.AddWithValue("@izdavacID", b.IzdavacID);
 
+            Controller.Instance.terminal.vPrintLn($"{b.ImeKnjige} {b.BrStrana} {(int)b.FormatKnjige} {b.DatPublished} {b.ISBN} {(int)b.Zanr} {(int)b.Jezik} {b.OpisKnjige} {b.VerzijaKnjige} {b.AutorID}");
+            Controller.Instance.terminal.sPrintLn(cmd.CommandText);
+
             int n = cmd.ExecuteNonQuery();
+
+            Controller.Instance.terminal.sPrintLn($"rows affected: {n}");
 
             broker.Close();
 
@@ -303,33 +308,21 @@ namespace pdf.ServerTty
             {
                 while (reader.Read())
                 {
-                    Book b = new Book()
-                    {
-                        KnjigaID = (int)reader["KnjigaID"],
-                        ImeKnjige = (string)reader["ImeKnjige"],
-                        BrStrana = (int)reader["BrStrana"],
-                        FormatKnjige = new Format()
-                        {
-                            FormatID = (int)reader["FormatID"],
-                            Name = (string)reader["Format"]
-                        },
-                        DatPublished = (DateTime)reader["DatPublished"],
-                        ISBN = (int)reader["ISBN"],
-                        Zanr = new Zanr()
-                        {
-                            ZanrID = (int)reader["GenreID"],
-                            Ime = (string)reader["Genre"]
-                        },
-                        Jezik = new Jezik()
-                        {
-                            JezikID = (int)reader["JezikID"],
-                            Name = (string)reader["JezikName"]
-                        },
-                        OpisKnjige = (string)reader["OpisKnjige"],
-                        VerzijaKnjige = (string)reader["VerzijeKnjige"],
-                        AutorID = (int)reader["AutorID"],
-                        IzdavacID = (int)reader["IzdavacID"]
-                    };
+                    Book b = new Book();
+
+                    b.KnjigaID = (int)reader["KnjigaID"];
+                    b.ImeKnjige = (string)reader["ImeKnjige"];
+                    b.BrStrana = (int)reader["BrStrana"];
+                    b.FormatKnjige = (Format)reader["FormatID"];
+                    b.DatPublished = (DateTime)reader["DatPublished"];
+                    b.ISBN = (string)reader["ISBN"];
+                    b.Zanr = (Zanr)reader["GenreID"];
+                    b.Jezik = (Jezik)reader["JezikID"];
+                    b.OpisKnjige = (string)reader["OpisKnjige"];
+                    b.VerzijaKnjige = (string)reader["VerzijeKnjige"];
+                    b.AutorID = (int)reader["AutorID"];
+                    b.IzdavacID = (int)reader["IzdavacID"];
+                    
 
                     list.Add(b);
                 }
@@ -338,7 +331,7 @@ namespace pdf.ServerTty
             broker.Close();
             return list;
         }
-        public List<Book> PretraziKnjige(Criteria.BookCriteria bc, string value) 
+        public List<Book> PretraziKnjige(CriteriaArg ca) 
         {
             List<Book> list = new List<Book>();
 
@@ -348,7 +341,7 @@ namespace pdf.ServerTty
             cmd.Connection = broker.returnConnection();
 
             string columnName = "";
-            switch (bc)
+            switch (ca.bc)
             {
                 case Criteria.BookCriteria.id:
                     columnName = "KnjigaID";
@@ -383,7 +376,7 @@ namespace pdf.ServerTty
             }
 
             cmd.CommandText = $"SELECT * FROM Knjiga WHERE {columnName} = @value";
-            cmd.Parameters.AddWithValue("@value", value);
+            cmd.Parameters.AddWithValue("@value", ca.val);
 
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
@@ -394,11 +387,11 @@ namespace pdf.ServerTty
                         KnjigaID = (int)reader["KnjigaID"],
                         ImeKnjige = (string)reader["ImeKnjige"],
                         BrStrana = (int)reader["BrStrana"],
-                        FormatKnjige = new Format { FormatID = (int)reader["FormatKnjigeID"], Name = (string)reader["FormatName"] },
+                        FormatKnjige = (Format)reader["FormatKnjigeID"],
                         DatPublished = (DateTime)reader["DatPublished"],
-                        ISBN = (int)reader["ISBN"],
-                        Zanr = new Zanr { ZanrID = (int)reader["ZanrID"], Ime = (string)reader["ZanrName"] },
-                        Jezik = new Jezik { JezikID = (int)reader["JezikID"], Name = (string)reader["JezikName"] },
+                        ISBN = (string)reader["ISBN"],
+                        Zanr = (Zanr)reader["ZanrID"],
+                        Jezik = (Jezik)reader["JezikID"],
                         OpisKnjige = (string)reader["OpisKnjige"],
                         VerzijaKnjige = (string)reader["VerzijeKnjige"],
                         AutorID = (int)reader["AutorID"],
@@ -432,11 +425,11 @@ namespace pdf.ServerTty
                 {
                     b.ImeKnjige = (string)reader["ImeKnjige"];
                     b.BrStrana = (int)reader["BrStrana"];
-                    b.FormatKnjige = new Format { FormatID = (int)reader["FormatKnjigeID"], Name = (string)reader["FormatName"] };
+                    b.FormatKnjige = (Format)reader["FormatKnjigeID"];
                     b.DatPublished = (DateTime)reader["DatPublished"];
-                    b.ISBN = (int)reader["ISBN"];
-                    b.Zanr = new Zanr { ZanrID = (int)reader["ZanrID"], Ime = (string)reader["ZanrName"] };
-                    b.Jezik = new Jezik { JezikID = (int)reader["JezikID"], Name = (string)reader["JezikName"] };
+                    b.ISBN = (string)reader["ISBN"];
+                    b.Zanr = (Zanr)reader["ZanrID"];
+                    b.Jezik = (Jezik)reader["JezikID"];
                     b.OpisKnjige = (string)reader["OpisKnjige"];
                     b.VerzijaKnjige = (string)reader["VerzijeKnjige"];
                     b.AutorID = (int)reader["AutorID"];
@@ -452,32 +445,27 @@ namespace pdf.ServerTty
             broker.Open();
 
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = @"UPDATE Knjiga
-                        SET ImeKnjige = @imeKnjige,
-                            BrStrana = @brStrana,
-                            FormatKnjigeID = @formatKnjigeID,
-                            DatPublished = @datPublished,
-                            ISBN = @isbn,
-                            ZanrID = @zanrID,
-                            JezikID = @jezikID,
-                            OpisKnjige = @opisKnjige,
-                            VerzijeKnjige = @verzijaKnjige,
-                            AutorID = @autorID,
-                            IzdavacID = @izdavacID
-                        WHERE KnjigaID = @knjigaID";
-            cmd.Parameters.AddWithValue("@imeKnjige", b.ImeKnjige);
-            cmd.Parameters.AddWithValue("@brStrana", b.BrStrana);
-            cmd.Parameters.AddWithValue("@formatKnjigeID", b.FormatKnjige.FormatID);
-            cmd.Parameters.AddWithValue("@datPublished", b.DatPublished);
-            cmd.Parameters.AddWithValue("@isbn", b.ISBN);
-            cmd.Parameters.AddWithValue("@zanrID", b.Zanr.ZanrID);
-            cmd.Parameters.AddWithValue("@jezikID", b.Jezik.JezikID);
-            cmd.Parameters.AddWithValue("@opisKnjige", b.OpisKnjige);
-            cmd.Parameters.AddWithValue("@verzijaKnjige", b.VerzijaKnjige);
-            cmd.Parameters.AddWithValue("@autorID", b.AutorID);
-            cmd.Parameters.AddWithValue("@izdavacID", b.IzdavacID);
+
+            // --------------------------------- \\
+
+            if (b.ImeKnjige != null) { cmd.Parameters.AddWithValue("@imeKnjige", b.ImeKnjige); cmd.CommandText = @"UPDATE Knjiga SET ImeKnjige = @imeKnjige WHERE KnjigaID = @knjigaID"; }
+            else if (b.BrStrana != -1) { cmd.Parameters.AddWithValue("@brStrana", b.BrStrana); cmd.CommandText = @"UPDATE Knjiga SET BrStrana = @brStrana WHERE KnjigaID = @knjigaID"; }
+            else if (b.OpisKnjige != null) { cmd.Parameters.AddWithValue("@opisKnjige", b.OpisKnjige); cmd.CommandText = @"UPDATE Knjiga SET OpisKnjige = @opisKnjige WHERE KnjigaID = @knjigaID"; }
+            else if (b.VerzijaKnjige != null) { cmd.Parameters.AddWithValue("@verzijaKnjige", b.VerzijaKnjige); cmd.CommandText = @"UPDATE Knjiga SET VerzijeKnjige = @verzijaKnjige WHERE KnjigaID = @knjigaID"; }
+            else if (b.DatPublished != null) { cmd.Parameters.AddWithValue("@datPublished", b.DatPublished); cmd.CommandText = @"UPDATE Knjiga SET DatPublished = @datPublished WHERE KnjigaID = @knjigaID"; }
+            else if (b.ISBN!= null) { cmd.Parameters.AddWithValue("@isbn", b.ISBN); cmd.CommandText = @"UPDATE Knjiga SET ISBN = @isbn WHERE KnjigaID = @knjigaID"; }
+            else if (b.FormatKnjige != Format.NotSet) { cmd.Parameters.AddWithValue("@formatKnjigeID", (int)b.FormatKnjige); cmd.CommandText = @"UPDATE Knjiga SET FormatKnjigeID = @formatKnjigeID WHERE KnjigaID = @knjigaID"; }
+            else if (b.Jezik != Jezik.NotSet) { cmd.Parameters.AddWithValue("@jezikID", (int)b.Jezik); cmd.CommandText = @"UPDATE Knjiga SET JezikID = @jezikID WHERE KnjigaID = @knjigaID"; }
+            else if (b.Zanr != Zanr.NotSet) { cmd.Parameters.AddWithValue("@zanrID", (int)b.Zanr); cmd.CommandText = @"UPDATE Knjiga SET ZanrID = @zanrID WHERE KnjigaID = @knjigaID"; }
+            else if (b.AutorID != -1) { cmd.Parameters.AddWithValue("@autorID", b.AutorID); cmd.CommandText = @"UPDATE Knjiga SET AutorID = @autorID WHERE KnjigaID = @knjigaID"; }
+            else if (b.IzdavacID != -1) { cmd.Parameters.AddWithValue("@izdavacID", b.IzdavacID); cmd.CommandText = @"UPDATE Knjiga SET IzdavacID = @izdavacID WHERE KnjigaID = @knjigaID"; }
+            else { }
+            
             cmd.Parameters.AddWithValue("@knjigaID", b.KnjigaID);
             cmd.Connection = broker.returnConnection();
+            Controller.Instance.terminal.sPrintLn(cmd.CommandText);
+
+            // --------------------------------- \\
 
             int n = cmd.ExecuteNonQuery();
 
@@ -495,8 +483,11 @@ namespace pdf.ServerTty
             cmd.CommandText = "DELETE FROM Knjiga WHERE KnjigaID = @knjigaID";
             cmd.Parameters.AddWithValue("@knjigaID", b.KnjigaID);
             cmd.Connection = broker.returnConnection();
+            Controller.Instance.terminal.sPrintLn($"{cmd.CommandText}");
 
             int n = cmd.ExecuteNonQuery();
+
+            Controller.Instance.terminal.vPrintLn($"n: {n}");
 
             broker.Close();
 
@@ -504,30 +495,52 @@ namespace pdf.ServerTty
                 return true;
             return false;
         }
-        public bool NapraviStatusKnjige(BookStatus bs) 
+        public void NapraviJedanStatus(BookStatus bs) 
         {
-            broker.Open();
+            
+        }
+        public bool NapraviStatusKnjige(List<BookStatus> lbs) 
+        {
+            try
+            {
+                broker.Open();
+                broker.BeginTransaction();
+                SqlTransaction sqlt = broker.returnTransaction();
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = @"INSERT INTO BookStatus (KnjigaID, KorisnikID, BrProcitanihStrana, StatusKnjigeID, DatAdded, DatLastModified, RatingID, Feedback)
+                foreach (BookStatus bs in lbs) 
+                {
+                    //NapraviJedanStatus(bs);
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Transaction = sqlt;
+                    cmd.CommandText = @"INSERT INTO StatusKnjige (KnjigaID, KorisnikID, BrProcitanihStrana, StatusKnjigeID, DatAdded, DatLastModified, RatingID, Feedback)
                         VALUES (@knjigaID, @korisnikID, @brProcitanihStrana, @statusKnjigeID, @datAdded, @datLastModified, @ratingID, @feedback)";
-            cmd.Parameters.AddWithValue("@knjigaID", bs.KnjigaID);
-            cmd.Parameters.AddWithValue("@korisnikID", bs.KorisnikID);
-            cmd.Parameters.AddWithValue("@brProcitanihStrana", bs.BrProcitanihStrana);
-            cmd.Parameters.AddWithValue("@statusKnjigeID", bs.StatusKnjige.StatusID);
-            cmd.Parameters.AddWithValue("@datAdded", bs.DatAdded);
-            cmd.Parameters.AddWithValue("@datLastModified", bs.DatLastModified);
-            cmd.Parameters.AddWithValue("@ratingID", bs.Rating.RatingID);
-            cmd.Parameters.AddWithValue("@feedback", bs.Feedback);
-            cmd.Connection = broker.returnConnection();
+                    cmd.Parameters.AddWithValue("@knjigaID", bs.Knjiga.KnjigaID);
+                    cmd.Parameters.AddWithValue("@korisnikID", bs.KorisnikID);
+                    cmd.Parameters.AddWithValue("@brProcitanihStrana", bs.BrProcitanihStrana);
+                    cmd.Parameters.AddWithValue("@statusKnjigeID", (int)bs.StatusKnjige);
+                    cmd.Parameters.AddWithValue("@datAdded", bs.DatAdded);
+                    cmd.Parameters.AddWithValue("@datLastModified", bs.DatLastModified);
+                    cmd.Parameters.AddWithValue("@ratingID", (int)bs.Rating);
+                    cmd.Parameters.AddWithValue("@feedback", bs.Feedback);
+                    cmd.Connection = broker.returnConnection();
 
-            int n = cmd.ExecuteNonQuery();
+                    int n = cmd.ExecuteNonQuery();
 
-            broker.Close();
+                    Controller.Instance.terminal.sPrintLn($"AddStatus uspeo? {n}");
+                }
 
-            if (n > 0)
+                broker.Commit();
+                Controller.Instance.terminal.sPrintLn("commited");
+                broker.Close();
                 return true;
-            return false;
+            }
+            catch (Exception ex) 
+            {
+                broker.Rollback();
+                Controller.Instance.terminal.sPrintLn($"rollbacked, {ex.Message}");
+                broker.Close();
+                return false;
+            }
         }
         public List<BookStatus> PretraziStatuseKnjiga(Criteria.BookStatusCriteria criteria, string value)
         {
@@ -565,7 +578,8 @@ namespace pdf.ServerTty
             }
 
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = $"SELECT * FROM BookStatus WHERE {columnName} = @value";
+            // JOIN ISKORISTI OVDE
+            cmd.CommandText = $"SELECT * FROM BookStatus bs JOIN Knjiga kk ON (bs.KnjigaID = kk.KnjigaID) WHERE {columnName} = @value";
             cmd.Parameters.AddWithValue("@value", value);
             cmd.Connection = broker.returnConnection();
 
@@ -576,7 +590,7 @@ namespace pdf.ServerTty
                     BookStatus status = new BookStatus()
                     {
                         KorisnikID = (int)reader["KorisnikID"],
-                        KnjigaID = (int)reader["KnjigaID"],
+                        Knjiga = new Book { KnjigaID = (int)reader["KnjigaID"], ImeKnjige = (string)reader["ImeKnjige"], BrStrana = (int)reader["BrStrana"], AutorID = (int)reader["AutorID"], DatPublished = (DateTime)reader["DatPublished"], FormatKnjige = (Format)reader["FormatKnjigeID"], ISBN = (string)reader["ISBN"], IzdavacID = (int)reader["IzdavacID"], Jezik = (Jezik)reader["Jezik"], OpisKnjige = (string)reader["OpisKnjige"], VerzijaKnjige = (string)reader["VerzijaKnjige"], Zanr = (Zanr)reader["Zanr"] },
                         BrProcitanihStrana = (int)reader["BrProcitanihStrana"],
                         StatusKnjige = (Status)reader["StatusKnjige"],
                         DatAdded = (DateTime)reader["DatAdded"],
@@ -593,14 +607,14 @@ namespace pdf.ServerTty
 
             return listaStatusa;
         }
-        public List<BookStatus> UcitajStatusKnjige(BookStatus bs)
+        public List<BookStatus> UcitajStatuseKnjige(User u)
         {
             List<BookStatus> listaStatusa = new List<BookStatus>();
 
             broker.Open();
 
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = $"SELECT * FROM StatusKnjige sk JOIN Status s ON (sk.StatusKnjigeID = s.StatusID) JOIN Rating r ON (r.RatingID = sk.RatingID) WHERE KorisnikID = {bs.KorisnikID} AND KnjigaID = {bs.KnjigaID}";
+            cmd.CommandText = $"SELECT * FROM StatusKnjige sk JOIN Knjiga kk ON (sk.KnjigaID = kk.KnjigaID) WHERE KorisnikID = {u.Id}";
             cmd.Connection = broker.returnConnection();
 
             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -610,12 +624,12 @@ namespace pdf.ServerTty
                     BookStatus status = new BookStatus()
                     {
                         KorisnikID = (int)reader["KorisnikID"],
-                        KnjigaID = (int)reader["KnjigaID"],
+                        Knjiga = new Book { KnjigaID = (int)reader["KnjigaID"], ImeKnjige = (string)reader["ImeKnjige"], BrStrana = (int)reader["BrStrana"], AutorID = (int)reader["AutorID"], DatPublished = (DateTime)reader["DatPublished"], FormatKnjige = (Format)reader["FormatKnjigeID"], ISBN = (string)reader["ISBN"], IzdavacID = (int)reader["IzdavacID"], Jezik = (Jezik)reader["JezikID"], OpisKnjige = (string)reader["OpisKnjige"], VerzijaKnjige = (string)reader["VerzijeKnjige"], Zanr = (Zanr)reader["ZanrID"] },
                         BrProcitanihStrana = (int)reader["BrProcitanihStrana"],
-                        StatusKnjige = new Status { StatusID = (int)reader["StatusID"], Name = (string)reader["Status"] },
+                        StatusKnjige = (Status)reader["StatusKnjigeID"],
                         DatAdded = (DateTime)reader["DatAdded"],
                         DatLastModified = (DateTime)reader["DatLastModified"],
-                        Rating = new Rating { RatingID = (int)reader["RatingID"], Name = (string)reader["Name"] },
+                        Rating = (Rating)reader["RatingID"],
                         Feedback = (string)reader["Feedback"]
                     };
 
@@ -627,12 +641,24 @@ namespace pdf.ServerTty
 
             return listaStatusa;
         }
-        public bool IzmeniStatusKnjige(BookStatus bs) 
+        public void IzmeniJedanStatus(BookStatus bs) 
         {
-            broker.Open();
+            
+        }
+        public bool IzmeniStatusKnjige(List<BookStatus> lbs) 
+        {
+            try
+            {
+                broker.Open();
+                broker.BeginTransaction();
+                SqlTransaction sqlt = broker.returnTransaction();
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = @"UPDATE StatusKnjige
+                foreach (BookStatus bs in lbs)
+                {
+                    //NapraviJedanStatus(bs);
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Transaction = sqlt;
+                    cmd.CommandText = @"UPDATE StatusKnjige
                         SET BrProcitanihStrana = @brProcitanihStrana,
                             StatusKnjigeID = @statusKnjigeID,
                             DatAdded = @datAdded,
@@ -640,23 +666,32 @@ namespace pdf.ServerTty
                             RatingID = @ratingID,
                             Feedback = @feedback
                         WHERE KnjigaID = @knjigaID AND KorisnikID = @korisnikID";
-            cmd.Parameters.AddWithValue("@brProcitanihStrana", bs.BrProcitanihStrana);
-            cmd.Parameters.AddWithValue("@statusKnjigeID", bs.StatusKnjige.StatusID);
-            cmd.Parameters.AddWithValue("@datAdded", bs.DatAdded);
-            cmd.Parameters.AddWithValue("@datLastModified", bs.DatLastModified);
-            cmd.Parameters.AddWithValue("@ratingID", bs.Rating.RatingID);
-            cmd.Parameters.AddWithValue("@feedback", bs.Feedback);
-            cmd.Parameters.AddWithValue("@knjigaID", bs.KnjigaID);
-            cmd.Parameters.AddWithValue("@korisnikID", bs.KorisnikID);
-            cmd.Connection = broker.returnConnection();
+                    cmd.Parameters.AddWithValue("@brProcitanihStrana", bs.BrProcitanihStrana);
+                    cmd.Parameters.AddWithValue("@statusKnjigeID", (int)bs.StatusKnjige);
+                    cmd.Parameters.AddWithValue("@datAdded", bs.DatAdded);
+                    cmd.Parameters.AddWithValue("@datLastModified", bs.DatLastModified);
+                    cmd.Parameters.AddWithValue("@ratingID", (int)bs.Rating);
+                    cmd.Parameters.AddWithValue("@feedback", bs.Feedback);
+                    cmd.Parameters.AddWithValue("@knjigaID", bs.Knjiga.KnjigaID);
+                    cmd.Parameters.AddWithValue("@korisnikID", bs.KorisnikID);
+                    cmd.Connection = broker.returnConnection();
 
-            int n = cmd.ExecuteNonQuery();
+                    int n = cmd.ExecuteNonQuery();
+                    Controller.Instance.terminal.sPrintLn($"Edited jedan! {n}");
+                }
 
-            broker.Close();
-
-            if (n > 0)
+                broker.Commit();
+                Controller.Instance.terminal.sPrintLn("commited");
+                broker.Close();
                 return true;
-            return false;
+            }
+            catch (Exception ex)
+            {
+                broker.Rollback();
+                Controller.Instance.terminal.sPrintLn("rollbacked");
+                broker.Close();
+                return false;
+            }
         }
         public List<Autor> UcitajAutore() 
         {

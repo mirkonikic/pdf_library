@@ -7,16 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using pdf.Domain;
+using System.Diagnostics;
 
 namespace pdf.Client
 {
-    /*
-    at System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(Boolean defaultValue)
-    at pdf.Client.Controller..ctor() in C:\Users\mirko\source\repos\pdf_library\pdf.Client\Controller.cs:line 34
-    at pdf.Client.Controller.get_Instance() in C:\Users\mirko\source\repos\pdf_library\pdf.Client\Controller.cs:line 25
-    at pdf.Client.UserControls.LoginUC..ctor() in C:\Users\mirko\source\repos\pdf_library\pdf.Client\UserControls\LoginUC.cs:line 18 
-    */
-
     public enum FormInUse { LoginForm, UserForm, AdminForm, NotSet }
     public class Controller
     {
@@ -26,6 +20,8 @@ namespace pdf.Client
         public LoginForm lf;
         public UserForm uf;
         public AdminForm af;
+        public bool DEBUG = true;
+        public bool Admin = false;
         FormInUse curr_form = FormInUse.NotSet; // 0->Login; 1->User; 2->Admin
 
         private static Controller instance;

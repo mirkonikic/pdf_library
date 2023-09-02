@@ -24,32 +24,46 @@ namespace pdf.Client.UserControls
         {
             // validacija!
             // ne smeju oba da budu prazna!
-            if (username_txt.Text == "" || passwd_txt.Text == "") 
+
+            User u = new User();
+
+            if (username_txt.Text == "" && passwd_txt.Text == "" && Controller.Instance.DEBUG == true)
+            {
+                if (Controller.Instance.Admin == true)
+                {
+                    u.UserName = "admin"; u.Password = "admin";
+                }
+                else
+                {
+                    u.UserName = "marko"; u.Password = "test";
+                }
+            }
+            else if (username_txt.Text == "" || passwd_txt.Text == "")
             {
                 Controller.Instance.PrintLn("Both field must be filled!");
                 return;
             }
-
-            User u = new User();
-            u.UserName = username_txt.Text;
-            u.Password = passwd_txt.Text;
+            else
+            {
+                u.UserName = username_txt.Text;
+                u.Password = passwd_txt.Text;
+            }
+            
             if (Controller.Instance.speaker.Login(u))
             {
-                // if (admin == true)
-                // Controller.Instance.InitForm(FormInUse.AdminForm);
-                // else
-                MessageBox.Show($"Login Succesful!\nWelcome {Controller.Instance.user.Id} {Controller.Instance.user.Name} {Controller.Instance.user.LastName}");
-                
+                //MessageBox.Show($"Login Succesful!\nWelcome {Controller.Instance.user.Id} {Controller.Instance.user.Name} {Controller.Instance.user.LastName}");
+
                 // check if u is admin
-                if(Controller.Instance.user.isAdmin)
+                if (Controller.Instance.user.isAdmin)
                     Controller.Instance.InitForm(FormInUse.AdminForm);
                 else
                     Controller.Instance.InitForm(FormInUse.UserForm);
             }
-            else 
+            else
             {
-                MessageBox.Show("Credentials are wrong!");       
+                MessageBox.Show("Credentials are wrong!");
             }
+            
         }
     }
 }

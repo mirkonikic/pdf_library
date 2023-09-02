@@ -46,11 +46,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminUserControls\AllBooksUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdminUserControls\AllBooksUC.Designer.cs">
+      <DependentUpon>AllBooksUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdminUserControls\AllUsersUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="AdminUserControls\AllUsersUC.Designer.cs">
       <DependentUpon>AllUsersUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserControls\CreateBookUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdminUserControls\CreateBookUC.Designer.cs">
+      <DependentUpon>CreateBookUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserControls\HelpUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdminUserControls\HelpUC.Designer.cs">
+      <DependentUpon>HelpUC.cs</DependentUpon>
     </Compile>
     <Compile Include="Client.cs" />
     <Compile Include="Controller.cs" />
@@ -123,8 +141,17 @@
     <Compile Include="UserUserControls\ProfileUC.Designer.cs">
       <DependentUpon>ProfileUC.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AdminUserControls\AllBooksUC.resx">
+      <DependentUpon>AllBooksUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AdminUserControls\AllUsersUC.resx">
       <DependentUpon>AllUsersUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminUserControls\CreateBookUC.resx">
+      <DependentUpon>CreateBookUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminUserControls\HelpUC.resx">
+      <DependentUpon>HelpUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>

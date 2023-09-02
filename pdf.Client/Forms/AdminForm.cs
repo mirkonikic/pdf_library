@@ -54,5 +54,15 @@ namespace pdf.Client.Forms
         {
             ChangePanel(new HelpUC());
         }
+
+        private void allBooksToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangePanel(new AllBooksUC());
+        }
+
+        private void createBookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangePanel(new CreateBookUC());
+        }
     }
 }

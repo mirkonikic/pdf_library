@@ -62,6 +62,41 @@ visual  -> turns visual mode on or off -> more information                      
 
 
 
+    PITANJA: 
+        kako kreirati AutorID -> da li spada u ovaj projekat
+        kako kreirati knjigu zbog ^
+        Da li treba da menjam pdf za seminarski, da li je ok
+
+
+
+
+
+
+
+
+sutra dodati all books, edit i delete i gotov admin
+kod usera dodati status create i edit -> SK
+onda ostaje dokumentacija jos samo
+
+
+
+
+
+
+todo:
+admin: Promena podataka o knjizi  -> osmisliti kako da bih zavrsio admina, ili u dgv listi ili kao odvojena forma -> najlakse bi bilo on enter da se posalje zahtev ili button EDIT
+    dodaj samo na promenu dgv-a da se slaje request bazi
+user_: Pretrazivanje liste knjiga -> samo prekopiraj isto iz admina, pa npr moze da se selektuje i CreateBookStatus?? npr i preko liste MyBooks
+{
+user_: Kreiranje statusa knjige
+user_: Promena statusa knjige
+} -> mislim da ovo mogu preko dgv, choose book from list, itd pa kreira nekoliko ili edituje vec kreirane i filter dodati po read, to_read i reading -> brstrana
+
+
+
+
+
+
 
 
 Vidi da li ces da implementiras za sve Napravi i Obrisi ili samo sta je navedeno

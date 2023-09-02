@@ -274,7 +274,7 @@ namespace pdf.ServerTty
                         // ispisi broj ili imena ili neku spec kolonu ili ime:adresa
                         List<Book> bl = Controller.Instance.broker.UcitajKnjige();
                         Controller.Instance.terminal.sPrintLn($"In database there is {bl.Count} {argv[2]} objects");
-                        foreach (var i in bl) { Controller.Instance.terminal.vPrintLn($"{i.ImeKnjige} {i.BrStrana} {i.FormatKnjige.Name} {i.DatPublished}"); }
+                        foreach (var i in bl) { Controller.Instance.terminal.vPrintLn($"{i.ImeKnjige} {i.BrStrana} {i.FormatKnjige.ToString()} {i.DatPublished}"); }
                     }
                     else
                         Controller.Instance.terminal.ePrintLn("that object doesnt exist!");

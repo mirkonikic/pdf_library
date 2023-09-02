@@ -67,14 +67,14 @@
             // profileToolStripMenuItem
             // 
             this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
-            this.profileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.profileToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.profileToolStripMenuItem.Text = "Profile";
             this.profileToolStripMenuItem.Click += new System.EventHandler(this.profileToolStripMenuItem_Click);
             // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.logoutToolStripMenuItem.Text = "Logout";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
@@ -90,14 +90,14 @@
             // allBooksToolStripMenuItem
             // 
             this.allBooksToolStripMenuItem.Name = "allBooksToolStripMenuItem";
-            this.allBooksToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.allBooksToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.allBooksToolStripMenuItem.Text = "All Books";
             this.allBooksToolStripMenuItem.Click += new System.EventHandler(this.allBooksToolStripMenuItem_Click);
             // 
             // myBooksToolStripMenuItem
             // 
             this.myBooksToolStripMenuItem.Name = "myBooksToolStripMenuItem";
-            this.myBooksToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.myBooksToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.myBooksToolStripMenuItem.Text = "My Books";
             this.myBooksToolStripMenuItem.Click += new System.EventHandler(this.myBooksToolStripMenuItem_Click);
             // 
@@ -117,9 +117,9 @@
             // 
             // main_panel
             // 
-            this.main_panel.Location = new System.Drawing.Point(12, 31);
+            this.main_panel.Location = new System.Drawing.Point(0, 31);
             this.main_panel.Name = "main_panel";
-            this.main_panel.Size = new System.Drawing.Size(1106, 584);
+            this.main_panel.Size = new System.Drawing.Size(1130, 597);
             this.main_panel.TabIndex = 2;
             // 
             // UserForm

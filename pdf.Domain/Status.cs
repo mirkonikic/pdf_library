@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace pdf.Domain
 {
-    public class Status
+    public enum Status
     {
-        public int StatusID { get; set; }
-        public string Name { get; set; }
+        NotSet = 0,
+        to_read = 1,
+        reading = 2,
+        read = 3
     }
 }

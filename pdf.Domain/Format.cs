@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace pdf.Domain
 {
-    public class Format
+    public enum Format
     {
-        public int FormatID { get; set; }
-        public string Name { get; set; }
+        NotSet = 0,
+        PDF = 1,
+        EPUB = 2,
+        AWZ = 3,
+        PaperBack = 4,
+        HardCover = 5
     }
 }

@@ -8,18 +8,23 @@ namespace pdf.Common
 {
     public enum Operation
     {
-        Register,
         Login,
-        SearchBookStatus,
         SearchUser,
-        EditUser,
+        SearchBook,
+        SearchBookStatus,
         AllUsers,
+        AllBooks,
+        AllAuthors,
+        AllPublishers,
+        AllBookStatuses,
         DeleteUser,
-        CreateBook,
         DeleteBook,
+        EditUser,
         EditBook,
+        EditBookStatus,
+        Register,
+        CreateBook,
         CreateBookStatus,
-        EditBookStatus
     }
 
     public enum ResponseCode 

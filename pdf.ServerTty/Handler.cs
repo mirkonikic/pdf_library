@@ -174,6 +174,21 @@ namespace pdf.ServerTty
                             }
                         }
                         break;
+                    case Operation.DeleteBook:
+                        Book del_b = Communication.parseRequest<Book>(r);
+                        Controller.Instance.terminal.vPrintLn($"Delete Attempt: {user.Name} {c.socket.RemoteEndPoint}");
+                        Controller.Instance.terminal.vPrintLn($"        del: {del_b.KnjigaID} {del_b.ImeKnjige}");
+                        // Success ili Failed
+                        // pozovi nad bazom -> uporedi dal Password and Username matches
+
+                        List<User> b_del = Controller.Instance.broker.PretraziKorisnike(new CriteriaArg { bc = Criteria.BookCriteria.id, val = Communication.parseRequest<Book>(r).KnjigaID.ToString() });
+                        if (b_del.Count > 1) { Controller.Instance.terminal.ePrintLn("Something went wrong!"); }
+
+                        if (Controller.Instance.broker.ObrisiKnjigu(del_b))
+                        {
+                            resp = new Response { ResponseCode = ResponseCode.Success };
+                        }
+                        break;
                     case Operation.AllUsers:
                         Controller.Instance.terminal.vPrintLn($"All Users Attempt: {user.Name} {c.socket.RemoteEndPoint}");
                         List<User> all_u = null;
@@ -182,6 +197,38 @@ namespace pdf.ServerTty
                         if (all_u != null)
                             resp = new Response { ResponseCode = ResponseCode.Success, Argument = all_u };
                         break;
+                    case Operation.AllBooks:
+                        Controller.Instance.terminal.vPrintLn($"All Books Attempt: {user.Name} {c.socket.RemoteEndPoint}");
+                        List<Book> all_b = null;
+                        all_b = Controller.Instance.broker.UcitajKnjige();
+                        Controller.Instance.terminal.vPrintLn($"Number of books retrieved: {all_b.Count}");
+                        if (all_b != null)
+                            resp = new Response { ResponseCode = ResponseCode.Success, Argument = all_b };
+                        break;
+                    case Operation.AllBookStatuses:
+                        Controller.Instance.terminal.vPrintLn($"All Book Statuses Attempt: {user.Name} {c.socket.RemoteEndPoint}");
+                        List<BookStatus> all_bs = null;
+                        all_bs = Controller.Instance.broker.UcitajStatuseKnjige(user);
+                        Controller.Instance.terminal.vPrintLn($"Number of book statuses retrieved: {all_bs.Count}");
+                        if (all_bs != null)
+                            resp = new Response { ResponseCode = ResponseCode.Success, Argument = all_bs };
+                        break;
+                    case Operation.AllAuthors:
+                        Controller.Instance.terminal.vPrintLn($"All Authors Attempt: {user.Name} {c.socket.RemoteEndPoint}");
+                        List<Autor> all_a = null;
+                        all_a = Controller.Instance.broker.UcitajAutore();
+                        Controller.Instance.terminal.vPrintLn($"Number of authors retrieved: {all_a.Count}");
+                        if (all_a != null)
+                            resp = new Response { ResponseCode = ResponseCode.Success, Argument = all_a };
+                        break;
+                    case Operation.AllPublishers:
+                        Controller.Instance.terminal.vPrintLn($"All Publishers Attempt: {user.Name} {c.socket.RemoteEndPoint}");
+                        List<Publisher> all_p = null;
+                        all_p = Controller.Instance.broker.UcitajIzdavace();
+                        Controller.Instance.terminal.vPrintLn($"Number of publishers retrieved: {all_p.Count}");
+                        if (all_p != null)
+                            resp = new Response { ResponseCode = ResponseCode.Success, Argument = all_p };
+                        break;
                     case Operation.SearchUser:
                         Controller.Instance.terminal.vPrintLn($"Search User Attempt: {user.Name} {c.socket.RemoteEndPoint}");
                         List<User> search_u = null;
@@ -189,6 +236,58 @@ namespace pdf.ServerTty
                         Controller.Instance.terminal.vPrintLn($"Number of users retrieved: {search_u.Count}");
                         if (search_u != null)
                             resp = new Response { ResponseCode = ResponseCode.Success, Argument = search_u };
+                        break;
+                    case Operation.SearchBook:
+                        Controller.Instance.terminal.vPrintLn($"Search Book Attempt: {user.Name} {c.socket.RemoteEndPoint}");
+                        List<Book> search_b = null;
+                        search_b = Controller.Instance.broker.PretraziKnjige(Communication.parseRequest<CriteriaArg>(r));
+                        Controller.Instance.terminal.vPrintLn($"Number of users retrieved: {search_b.Count}");
+                        if (search_b != null)
+                            resp = new Response { ResponseCode = ResponseCode.Success, Argument = search_b };
+                        break;
+                    case Operation.CreateBook:
+                        Controller.Instance.terminal.vPrintLn($"Create Book Attempt: {user.Name} {c.socket.RemoteEndPoint}");
+                        Book b = Communication.parseRequest<Book>(r);
+                        if (Controller.Instance.broker.NapraviKnjigu(b))
+                        {
+                            resp = new Response { ResponseCode = ResponseCode.Success };
+                            Controller.Instance.terminal.vPrintLn("Success creating the book!");
+                        }
+                        else
+                            Controller.Instance.terminal.vPrintLn("Failed creating the book!");
+                        break;
+                    case Operation.CreateBookStatus:
+                        Controller.Instance.terminal.vPrintLn($"Create Book Attempt: {user.Name} {c.socket.RemoteEndPoint}");
+                        List<BookStatus> cbs = Communication.parseRequest<List<BookStatus>>(r);
+                        if (Controller.Instance.broker.NapraviStatusKnjige(cbs))
+                        {
+                            resp = new Response { ResponseCode = ResponseCode.Success };
+                            Controller.Instance.terminal.vPrintLn("Success creating the book!");
+                        }
+                        else
+                            Controller.Instance.terminal.vPrintLn("Failed creating the book!");
+                        break;
+                    case Operation.EditBook:
+                        Book resp_b = Communication.parseRequest<Book>(r);
+                        Controller.Instance.terminal.vPrintLn($"Edit Book Attempt: {user.Name} {c.socket.RemoteEndPoint}");
+                        // Success ili Failed
+                        // pozovi nad bazom -> uporedi dal Password and Username matches
+
+                        if (Controller.Instance.broker.IzmeniKnjigu(resp_b))
+                        {
+                            resp = new Response { Argument = resp_b, ResponseCode = ResponseCode.Success };
+                        }
+                        break;
+                    case Operation.EditBookStatus:
+                        List<BookStatus> resp_ebs = Communication.parseRequest<List<BookStatus>>(r);
+                        Controller.Instance.terminal.vPrintLn($"Edit Book Status Attempt: {user.Name} {resp_ebs[0].Knjiga.ImeKnjige} {c.socket.RemoteEndPoint}");
+                        // Success ili Failed
+                        // pozovi nad bazom -> uporedi dal Password and Username matches
+
+                        if (Controller.Instance.broker.IzmeniStatusKnjige(resp_ebs))
+                        {
+                            resp = new Response { Argument = resp_ebs, ResponseCode = ResponseCode.Success };
+                        }
                         break;
                     default:
                         resp = new Response();

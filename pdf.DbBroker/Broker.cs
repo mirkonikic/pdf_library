@@ -45,9 +45,16 @@ namespace pdf.DbBroker
         }
         public SqlCommand CreateCommand(string sql = "")
         {
-            tran = conn.BeginTransaction();
+            //tran = conn.BeginTransaction();
             return new SqlCommand(sql, conn, tran);
         }
+
+        public void BeginTransaction()
+        {
+            tran = conn.BeginTransaction();
+        }
+
         public SqlConnection returnConnection() { return conn; }
+        public SqlTransaction returnTransaction() { return tran; }
     }
 }

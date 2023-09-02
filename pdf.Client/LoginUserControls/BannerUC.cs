@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,14 @@ namespace pdf.Client.UserControls
             Regex validateIPv4Regex = new Regex("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
             Regex validatePortRegex = new Regex("^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
 
-            if (ip_txt.Text == "" || port_lbl.Text == "")
+            // DEBUG -> if both fields are empty and DEBUG is set
+            if (ip_txt.Text == "" && port_txt.Text == "" && Controller.Instance.DEBUG == true)
+            {
+                // default login
+                Controller.Instance.client.Start();
+                setBtns();
+            }
+            else if (ip_txt.Text == "" || port_txt.Text == "")
             {
                 Controller.Instance.PrintLn("Both fields must be filled!");
                 return;
@@ -35,18 +43,21 @@ namespace pdf.Client.UserControls
                 Controller.Instance.PrintLn("Ip validation did not pass!");
                 return;
             }
-            else if (!validatePortRegex.IsMatch(port_txt.Text)) 
+            else if (!validatePortRegex.IsMatch(port_txt.Text))
             {
                 Controller.Instance.PrintLn("Port validation did not pass!");
                 return;
             }
+            else
+            {
 
-            Controller.Instance.client.IpAddress = ip_txt.Text;
-            Controller.Instance.client.Port = port_txt.Text;
-            // Connect with Client
-            // Keep connection for later sending of commands
-            Controller.Instance.client.Start();
-            setBtns();
+                Controller.Instance.client.IpAddress = ip_txt.Text;
+                Controller.Instance.client.Port = port_txt.Text;
+                // Connect with Client
+                // Keep connection for later sending of commands
+                Controller.Instance.client.Start();
+                setBtns();
+            }
         }
         private void disconnect_btn_Click(object sender, EventArgs e)
         {

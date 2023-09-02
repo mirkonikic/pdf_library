@@ -53,5 +53,11 @@
     <Compile Include="User.cs" />
     <Compile Include="Zanr.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\pdf.Common\pdf.Common.csproj">
+      <Project>{3f0c8c90-216f-4670-9e16-154dfc1fe654}</Project>
+      <Name>pdf.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
